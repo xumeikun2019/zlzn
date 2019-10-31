@@ -35,13 +35,13 @@ Page({
     },
       {
         url: '../mettingCheck/mettingCheck',
-        image: '../../images/check.jpg',
-        title: '签到'    
+        image: '../../images/check.png',
+        title: '会议室签到'    
       }
       ,
       {
         url: '../signOut/signOut',
-        image: '../../images/check.jpg',
+        image: '../../images/quit.png',
         title: '退出登录'
       }
     ]

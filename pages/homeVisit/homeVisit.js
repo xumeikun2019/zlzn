@@ -15,17 +15,17 @@ Page({
     ],
     plateArray: [{
       url: '../order/order',
-      image: '../../images/news.jpg',
+      image: '../../images/order.png',
       title: '访客预约'
     },
     {
       url: '../myOrder/myOrder',
-      image: '../../images/approve.jpg',
+      image: '../../images/myorder.png',
       title: '访客记录'
     }
     ,{
         url: '../sign/sign',
-        image: '../../images/check.jpg',
+        image: '../../images/quit.png',
         title: '退出登录'
       }
     ]
