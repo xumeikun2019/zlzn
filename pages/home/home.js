@@ -36,7 +36,7 @@ Page({
       {
         url: '../mettingCheck/mettingCheck',
         image: '../../images/check.jpg',
-        title: '会议室签到'
+        title: '会议室签到'    
       }
       ,
       {
