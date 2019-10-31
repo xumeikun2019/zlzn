@@ -1,0 +1,16 @@
+.page__title {
+  text-align:center
+} 
+
+.weui-cell__bd{
+
+  font-size: 0.8em;
+}
+
+.interval{
+
+  height:50px;
+}
+.weui-cells:after {
+  border-bottom: 0
+}

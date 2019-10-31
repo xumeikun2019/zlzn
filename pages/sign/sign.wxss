@@ -1,0 +1,121 @@
+/* pages/sign/sign.wxss */
+.bkimg{
+
+ height: 100vh;
+ width: 100vw;
+ position: absolute;
+ z-index: 0;
+}
+
+.page{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  /* background-color: #ffffe0; */
+  /*justify-content: center;  水平居中 */
+  align-items: center;     /* 垂直居中 */
+
+}
+.z_index{
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  /* background-color: #ffffe0; */
+  /*justify-content: center;  水平居中 */
+  align-items: center;     /* 垂直居中 */
+}
+
+.logo{
+  margin:15vh 0;
+  width:50vw;
+  height:4vh;
+  
+}
+.log_img{
+ width:300rpx;
+ height:120rpx;
+  
+
+}
+
+.login_form{
+	/* position: absolute;
+  z-index: 9;
+  /* margin:70% 20% 
+  margin:40vh 0; */
+  margin:2vh 0;
+ 
+}
+
+.user_img{
+  height:40rpx;
+  width: 40rpx;
+  margin-left: 2vw;
+
+}
+
+.pwd_img{
+  
+  height:40rpx;
+  width:40rpx;
+  margin-left: 2vw;
+
+}
+
+.login_form_user{
+  background-color: #5677aa;
+  display: flex;
+  flex-direction: row;
+  border-radius:5px;
+  width: 70vw;
+  align-items: center;     /* 垂直居中 */
+
+}
+
+.login_form_pwd{
+  margin-top: 20rpx;
+  background-color: #5677aa;
+  display: flex;
+  flex-direction: row;
+  border-radius:5px;
+  width: 70vw;
+  align-items: center;     /* 垂直居中 */
+}
+
+.user_input{
+  margin-left: 5vw;
+  border-left:1rpx solid #FFF;
+  padding-left: 10vw;
+}
+
+.pwd_input{
+  margin-left: 5vw;
+  padding-left: 10vw;
+  border-left:1rpx solid #FFF;
+}
+.login_btn{
+
+ /* position: relative;
+  z-index: 10;
+   margin:70% 20% */
+  margin: 2vh 0;
+}
+.login_img{
+  width:70vw; 
+  height:80rpx;
+
+  
+}
+.loginVisit_img{
+  position: relative;
+  width:70vw; 
+  height:80rpx;
+  top:-40rpx;
+}
+
+.checkbox{
+  display:inline-block ;
+
+}

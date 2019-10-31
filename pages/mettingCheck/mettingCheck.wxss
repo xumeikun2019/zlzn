@@ -1,0 +1,18 @@
+/* pages/face/face.wxss */
+.page{
+   display: flex;
+  flex-direction: column;
+  
+  text-align: center;
+}
+
+.img{
+
+  height:50vh;
+  width: 80vw;
+  border: 1px dashed #70bcf6; 
+}
+.weui-btn{
+
+  width: 50vw;
+}
