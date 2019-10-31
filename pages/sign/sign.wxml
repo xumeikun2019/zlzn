@@ -23,7 +23,7 @@
         <!-- <button  class='login_img' style="background-image:url(../../images/login.png)"></button> -->
     </view>
     <view class='login_btn'> 
-        <image src='../../images/login.png' class='loginVisit_img' bindtap="signVisit"  form-type='submit'></image>
+        <image src='../../images/loginvisit.png' class='loginVisit_img' bindtap="signVisit"  form-type='submit'></image>
         <!-- <button  class='login_img' style="background-image:url(../../images/login.png)"></button> -->
     </view>
 
