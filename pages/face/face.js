@@ -11,6 +11,7 @@ Page({
   uploadPhoto:function(){
     var that = this;
     var user = getApp().globalData.user;
+    var imgurl = getApp().globalData.imgUrl;
     console.log(user);
     if (this.data.imgUrl != ''){
 
@@ -36,7 +37,7 @@ Page({
                     console.log(res);
                     var data = res.data;
                     that.setData({
-                      imgUrl: "http://127.0.0.1:8080" + res.data
+                      imgUrl: imgurl + res.data
 
                     })
                     wx.showModal({

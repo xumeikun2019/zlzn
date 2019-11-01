@@ -24,7 +24,7 @@ Page({
       title: '访客记录'
     }
     ,{
-        url: '../sign/sign',
+      url: '../login/login',
         image: '../../images/quit.png',
         title: '退出登录'
       }

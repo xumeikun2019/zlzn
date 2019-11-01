@@ -50,8 +50,8 @@
   </view>
   <!-- 坚持打卡天数 -->
   <view class='count'>
-    <text>截至目前，你已坚持打卡</text>
     <text>红色为迟到天数</text>
+    <text>截至目前，你已坚持打卡</text>
     <view class='daynumber'>
       <text class='number'>{{count}}</text>
       <text class='day'>天</text>

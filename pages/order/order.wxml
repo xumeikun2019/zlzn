@@ -13,7 +13,7 @@
             <view class="weui-label">来访人数</view>
           </view>
           <view class="weui-cell__bd">
-            <input class="weui-input" placeholder="请输入来访人数" name='vNum' value='' bindinput='amount' placeholder-class='placeholder' />
+            <input class="weui-input" placeholder="请输入来访人数" name='vNum' value='{{forminfo}}' bindinput='amount' placeholder-class='placeholder' />
           </view>
         </view>
 
@@ -27,7 +27,7 @@
             </view>
             <view class="weui-cell__bd">
               <!-- <input class="weui-input"  placeholder="请输入身份证" name='idCard{{index}}'  placeholder-class='placeholder'></input> -->
-              <input class="weui-input" name="idcard" placeholder="请输入身份证" data-index="{{index}}" bindinput='initidcard' placeholder-class='placeholder'></input>
+              <input class="weui-input" name="idcard" placeholder="请输入身份证" data-index="{{index}}" value='{{forminfo}}' bindinput='initidcard' placeholder-class='placeholder'></input>
 
             </view>
           </view>
@@ -38,7 +38,7 @@
             </view>
             <view class="weui-cell__bd">
               <!-- <input class="weui-input"  placeholder="请输入姓名" name='vname{{index}}'  placeholder-class='placeholder'></input> -->
-              <input class="weui-input" data-id="{{index}}" placeholder="请输入姓名" data-index="{{index}}" bindinput='initvname' placeholder-class='placeholder'></input>
+              <input class="weui-input" data-id="{{index}}" placeholder="请输入姓名" value='{{forminfo}}' data-index="{{index}}" bindinput='initvname' placeholder-class='placeholder'></input>
 
             </view>
           </view>
@@ -76,7 +76,7 @@
             <view class="weui-label">来访事项</view>
           </view>
           <view class="weui-cell__bd">
-            <textarea class="weui-textarea" placeholder-class='placeholder' name='matter' />
+            <textarea class="weui-textarea" placeholder-class='placeholder' value='{{forminfo}}' name='matter' />
           </view>
         </view>
       </view>

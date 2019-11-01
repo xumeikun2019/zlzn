@@ -18,7 +18,8 @@ Page({
     idcardArr: [],
     vnameArr: [],
     url: getApp().globalData.imgUrl,
-    imgUrl: []
+    imgUrl: [],
+    forminfo:""
 
   },
 
@@ -128,14 +129,15 @@ Page({
           depTwo,
           depTwoList
         })
+        if (depTwoList.length > 0){
+          var defaultCode = depTwoList[0].id
+          if (defaultCode) {
+            that.setData({
+              currnetDepTwo: defaultCode // 存下当前选择的城市key
+            })
+            that.getDepUser(defaultCode); // 使用第一项当作参数获取第二级数据
 
-        var defaultCode = depTwoList[0].id
-        if (defaultCode) {
-          that.setData({
-            currnetDepTwo: defaultCode // 存下当前选择的城市key
-          })
-          that.getDepUser(defaultCode); // 使用第一项当作参数获取第二级数据
-
+          }
         }
       },
       fail: function(res) {
@@ -440,6 +442,7 @@ Page({
     })
   },
   formSubmit(e) {
+    var that = this;
     console.log(this.data.idcardArr);
     console.log(this.data.imgUrl);
     console.log(this.data.multiIndex[2]);
@@ -482,6 +485,11 @@ Page({
             title: '',
             content: '预约成功',
           })
+          that.setData({
+            forminfo:"",
+            imgUrl:""
+          })
+        
         } else{
           wx.showModal({
             title: '',
