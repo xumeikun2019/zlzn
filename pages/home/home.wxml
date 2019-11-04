@@ -17,4 +17,5 @@
       <text class="plate-info">{{ item.title }}</text>
     </navigator>
   </view>
+  <!-- <view bindtap="send" bindtouchend="message" >dingyue</view> -->
 </view>

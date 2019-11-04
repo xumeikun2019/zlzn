@@ -87,6 +87,8 @@ Page({
 
   },
   sign:function(e){
+    
+  
     var that = this ;
     console.log(this.data.redirect)
 
