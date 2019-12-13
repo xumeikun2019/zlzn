@@ -20,20 +20,13 @@
     </view>
     <view class='login_btn'> 
         <image src='../../images/login.png' class='login_img' bindtap="sign"  form-type='submit'></image>
-        <!-- <button  class='login_img' style="background-image:url(../../images/login.png)"></button> -->
     </view>
     <view class='login_btn'> 
         <image src='../../images/loginvisit.png' class='loginVisit_img' bindtap="signVisit"  form-type='submit'></image>
-        <!-- <button  class='login_img' style="background-image:url(../../images/login.png)"></button> -->
     </view>
 
 
-<!-- 
-    <checkbox-group bindchange="initcheck">
-    <label class="checkbox" >
-        <checkbox value="访客登录" checked="" bindc="" bindtouchend=""/>访客登录
-    </label>
-    </checkbox-group> -->
+
   </view>
  
 </view>

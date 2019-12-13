@@ -1,5 +1,6 @@
 {
   "pages": [
+  
     "pages/login/login",
     "pages/sign/sign",
     "pages/mettingCheck/mettingCheck",
@@ -11,14 +12,18 @@
     "pages/signOut/signOut",
     "pages/homeVisit/homeVisit",
     "pages/order/order",
-    "pages/myOrder/myOrder"
+    "pages/myOrder/myOrder",
+    "pages/endMeets/endMeets",
+    "pages/meets/meets",
+   
+    "pages/leaderMeets/leaderMeets",
+    "pages/companyMeets/companyMeets"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "中铝金融",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json"
-  
 }

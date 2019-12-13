@@ -1,0 +1,346 @@
+<view class="page">
+  <view class="page__hd">
+
+
+  </view>
+  <view class="tabbar">
+    <scroll-view scroll-x="true" class="weui-navbar">
+      <block wx:for-items="{{tabs}}" wx:key="{{index}}">
+        <view id="{{item.id}}" class="{{activeIndex == item.id ?'item_on':''}} default-item" bindtap="tabClick" style="width:{{tabW}}px">
+          {{item.cname}}
+        </view>
+      </block>
+      <view class="weui-navbar-slider" style="transform:translateX({{slideOffset}}px);"></view>
+    </scroll-view>
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">部门</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+          <view class="picker ">
+                当前选择：{{multiArray[0][multiIndex[0]]}}{{multiArray[1][multiIndex[1]]}}{{multiArray[2][multiIndex[2]]}}
+          </view>
+        </picker>
+      </view>
+    </view>
+
+
+    <checkbox-group bindchange="checkboxChange" class="checkbox">
+      <label wx:for="{{weeks1}}">
+        <checkbox class="checkbox-item" value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+      </label>
+    </checkbox-group>
+  </view>
+
+  <view class="page_bd">
+
+
+    <view wx:if="{{one == true}}">
+      <view wx:if="{{date11 == true}}" class="week">星期一 上午</view>
+
+      <view class="weui-cells " wx:for="{{meetList}}">
+
+        <view wx:if="{{item.date == '11'}}">
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议名称：{{item.meeting_name}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议地点：{{item.place}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">参会部门：{{item.depname}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议时间：{{item.time_start}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">联系人：{{item.lxr}}</view>
+          </view>
+        </view>
+      </view>
+
+
+
+
+      <view wx:if="{{date12 == true}}" class="week">星期一 下午</view>
+      <view class=" weui-cells" wx:for="{{meetList}}">
+        <view wx:if="{{item.date == '12'}}">
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议名称：{{item.meeting_name}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议地点：{{item.place}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">参会部门：{{item.depname}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议时间：{{item.time_start}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">联系人：{{item.lxr}}</view>
+          </view>
+        </view>
+      </view>
+
+    </view>
+    <view wx:if="{{two == true}}">
+      <view wx:if="{{date21 == true}}" class="week">星期二 上午</view>
+      <view class=" weui-cells" wx:for="{{meetList}}">
+        <view wx:if="{{item.date == '21'}}">
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议名称：{{item.meeting_name}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议地点：{{item.place}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">参会部门：{{item.depname}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议时间：{{item.time_start}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">联系人：{{item.lxr}}</view>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{date22 == true}}" class="week">星期二 下午</view>
+      <view class=" weui-cells" wx:for="{{meetList}}">
+        <view wx:if="{{item.date == '22'}}">
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议名称：{{item.meeting_name}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议地点：{{item.place}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">参会部门：{{item.depname}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议时间：{{item.time_start}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">联系人：{{item.lxr}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{three == true}}">
+      <view wx:if="{{date31 == true}}" class="week">星期三 上午</view>
+      <view class=" weui-cells" wx:for="{{meetList}}">
+        <view wx:if="{{item.date == '31'}}">
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议名称：{{item.meeting_name}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议地点：{{item.place}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">参会部门：{{item.depname}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议时间：{{item.time_start}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">联系人：{{item.lxr}}</view>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{date32 == true}}" class="week">星期三 下午</view>
+      <view class=" weui-cells" wx:for="{{meetList}}">
+        <view wx:if="{{item.date == '32'}}">
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议名称：{{item.meeting_name}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议地点：{{item.place}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">参会部门：{{item.depname}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议时间：{{item.time_start}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">联系人：{{item.lxr}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{four == true}}">
+      <view wx:if="{{date41 == true}}" class="week">星期四 上午</view>
+      <view class=" weui-cells" wx:for="{{meetList}}">
+        <view wx:if="{{item.date == '41'}}">
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议名称：{{item.meeting_name}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议地点：{{item.place}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">参会部门：{{item.depname}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议时间：{{item.time_start}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">联系人：{{item.lxr}}</view>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{date42 == true}}" class="week">星期四 下午</view>
+      <view class=" weui-cells" wx:for="{{meetList}}">
+        <view wx:if="{{item.date == '42'}}">
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议名称：{{item.meeting_name}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议地点：{{item.place}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">参会部门：{{item.depname}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议时间：{{item.time_start}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">联系人：{{item.lxr}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{five == true}}">
+      <view wx:if="{{date51 == true}}" class="week">星期五 上午</view>
+      <view class=" weui-cells" wx:for="{{meetList}}">
+        <view wx:if="{{item.date == '51'}}">
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议名称：{{item.meeting_name}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议地点：{{item.place}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">参会部门：{{item.depname}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议时间：{{item.time_start}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">联系人：{{item.lxr}}</view>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{date52 == true}}" class="week">星期五 下午</view>
+      <view class=" weui-cells" wx:for="{{meetList}}">
+        <view wx:if="{{item.date == '52'}}">
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议名称：{{item.meeting_name}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议地点：{{item.place}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">参会部门：{{item.depname}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议时间：{{item.time_start}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">联系人：{{item.lxr}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{six == true}}">
+      <view wx:if="{{date61 == true}}" class="week">星期六 上午</view>
+      <view class=" weui-cells" wx:for="{{meetList}}">
+        <view wx:if="{{item.date == '61'}}">
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议名称：{{item.meeting_name}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议地点：{{item.place}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">参会部门：{{item.depname}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议时间：{{item.time_start}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">联系人：{{item.lxr}}</view>
+          </view>
+        </view>
+      </view>
+      <view wx:if="{{date62 == true}}" class="week">星期六 下午</view>
+      <view class=" weui-cells" wx:for="{{meetList}}">
+        <view wx:if="{{item.date == '62'}}">
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议名称：{{item.meeting_name}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议地点：{{item.place}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">参会部门：{{item.depname}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议时间：{{item.time_start}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">联系人：{{item.lxr}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{seven == true}}">
+      <view wx:if="{{date71 == true}}" class="week">星期天 上午</view>
+      <view class=" weui-cells" wx:for="{{meetList}}">
+        <view wx:if="{{item.date == '71'}}">
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议名称：{{item.meeting_name}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议地点：{{item.place}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">参会部门：{{item.depname}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议时间：{{item.time_start}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">联系人：{{item.lxr}}</view>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{date72 == true}}" class="week">星期天 下午</view>
+      <view class=" weui-cells" wx:for="{{meetList}}">
+        <view wx:if="{{item.date == '72'}}">
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议名称：{{item.meeting_name}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议地点：{{item.place}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">参会部门：{{item.depname}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">会议时间：{{item.time_start}}</view>
+          </view>
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">联系人：{{item.lxr}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

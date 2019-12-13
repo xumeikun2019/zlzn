@@ -8,11 +8,12 @@ Page({
     imgUrl:""
 
   },
+  //上传照片
   uploadPhoto:function(){
     var that = this;
     var user = getApp().globalData.user;
     var imgurl = getApp().globalData.imgUrl;
-    console.log(user);
+    console.log(this.data.imgUrl);
     if (this.data.imgUrl != ''){
 
       wx.showModal({
@@ -24,34 +25,13 @@ Page({
           if (res.confirm) {
          
             wx.chooseImage({
+              count:1,
+              sizeType: ['compressed'],
               success: function (res) {
                 var tempFilePaths = res.tempFilePaths
-                wx.uploadFile({
-                  url: getApp().globalData.weburl + '/api/wxRequest/uploadImage.do',
-                  filePath: tempFilePaths[0],
-                  name: 'file',
-                  formData: {
-                    'user': user
-                  },
-                  success: function (res) {
-                    console.log(res);
-                    var data = res.data;
-                    that.setData({
-                      imgUrl: imgurl + res.data
-
-                    })
-                    wx.showModal({
-                      title: '',
-                      content: '上传成功',
-                    })
-                  }, fail: function (err) {
-                    console.log(err);
-                    wx.showModal({
-                      title: '',
-                      content: '上传失败',
-                    })
-                  }
-                })
+                console.log(res);
+                that.compressionImage(tempFilePaths)
+               
               }
             })
           } else {
@@ -59,6 +39,18 @@ Page({
           }
         }
       })
+    } else {
+      wx.chooseImage({
+        count: 1,
+        sizeType: ['compressed'],
+        success: function (res) {
+          var tempFilePaths = res.tempFilePaths
+          console.log(res);
+          that.compressionImage(tempFilePaths)
+
+        }
+      })
+
     }
     
      
@@ -92,8 +84,9 @@ Page({
    */
   onLoad: function (options) {
     var openid = getApp().globalData.openid;
-    var url = getApp().globalData.imgUrl;
+    var url = getApp().globalData.imgUrl+"/finance/upload/common/";
     var that = this;
+    //加载上传照片
     wx.request({
 
       // url: getApp().globalData.weburl + '/api/wxRequest/approve/' +id+ '/P',
@@ -105,12 +98,14 @@ Page({
       },
 
       success: function (res) {
-        console.log(res);
-        that.setData({
-          imgUrl:url+res.data.data[0].feature
-
-
-        })
+        console.log(res.data.data[0].feature);
+        //有照片直接显示
+        if (res.data.data[0].feature!=""){
+          console.log(res.data.data[0].feature);
+          that.setData({
+            imgUrl:url+res.data.data[0].feature
+          })
+        }
       },
       fail: function (res) {
         console.log(".....fail.....");
@@ -118,55 +113,80 @@ Page({
     })
 
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-
-
+  /**压缩图片 */
+  compressionImage(tempFilePaths) {
+    let that = this
+    wx.getImageInfo({
+      src: tempFilePaths[0],
+      success: function (res) {
+        var ctx = wx.createCanvasContext('photo_canvas');
+        //设置canvas尺寸
+        var towidth = 350; //按宽度500px的比例压缩
+        var toheight = Math.trunc(350 * res.height / res.width);
+        that.setData({
+          canvas_h: toheight
+        })
+        ctx.drawImage(tempFilePaths[0], 0, 0, res.width, res.height, 0, 0, towidth, toheight)
+        that.createMap(ctx);
+      }
+    })
   },
+  /**创建画布并上传图片 */
+  createMap(ctx) {
+    var user = getApp().globalData.user;
+    var imgurl = getApp().globalData.imgUrl + "/finance/upload/common/";
+    let that = this;
+    ctx.draw(true, function () {
+      wx.showLoading({
+        title: '压缩中',
+      })
+      setTimeout(() => {
+        wx.canvasToTempFilePath({
+          canvasId: 'photo_canvas',
+          fileType: "jpg",
+          quality:0.3,
+          success: function (res) {
+            wx.hideLoading();
+            wx.showLoading({
+              title: '上传中',
+            })
+            wx.uploadFile({
+              url: getApp().globalData.weburl + '/api/wxRequest/uploadImage.do',
+              filePath: res.tempFilePath,
+              name: 'file',
+              formData: {
+                'user': user
+              },
+              success: function (res) {
+                wx.hideLoading();
+                console.log(res);
+                var data = res.data;
+                that.setData({
+                  imgUrl: imgurl + res.data
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
+                })
+                wx.showModal({
+                  title: '',
+                  content: '上传成功',
+                })
+              }, fail: function (err) {
+                wx.hideLoading();
+                console.log(err);
+                wx.showModal({
+                  title: '',
+                  content: '上传失败',
+                })
+              }
+            })
+          },
+          fail(res) {
+            if (res.errMsg === "canvasToTempFilePath:fail:create bitmap failed") {
+              console.log("导出map失败")
+            }
+          }
+        }, this)
+      }, 200);
 
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

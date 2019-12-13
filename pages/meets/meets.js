@@ -13,14 +13,15 @@ Page({
     signUp: [],
     cur_year: 0,
     cur_month: 0,
-    count: 0
+    count: 0,
+    meets:[] 
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-   // this.setData({ objectId: options.objectId });
+    // this.setData({ objectId: options.objectId });
     //获取当前年月  
     const date = new Date();
     const cur_year = date.getFullYear();
@@ -38,7 +39,6 @@ Page({
 
     //console.log(this.data.days)
   },
-
   // 获取当月共多少天
   getThisMonthDays: function (year, month) {
     return new Date(year, month, 0).getDate()
@@ -102,11 +102,11 @@ Page({
       var year = current.getFullYear();
       var month = current.getMonth() + 1;
       var day = current.getDate();
-      console.log(year + "--" + month + "--"+day);
+      console.log(year + "--" + month + "--" + day);
       day = parseInt(day);
       for (var j = 0; j < daysArr.length; j++) {
         //年月日相同并且已打卡
-        console.log(month +'-----------'+that.data.cur_month)
+        console.log(month + '-----------' + that.data.cur_month)
         console.log(year == that.data.cur_year && month == that.data.cur_month && daysArr[j].date == day && signs[i].isSign == true)
         if (year == that.data.cur_year && month == that.data.cur_month && daysArr[j].date == day && signs[i].isSign == 'true') {
           console.log("已经打卡")
@@ -141,7 +141,7 @@ Page({
       this.calculateEmptyGrids(newYear, newMonth);
       this.calculateDays(newYear, newMonth);
       this.onGetSignUp();
-    
+
     } else {
       let newMonth = cur_month + 1;
       let newYear = cur_year;
@@ -156,7 +156,7 @@ Page({
       this.calculateEmptyGrids(newYear, newMonth);
       this.calculateDays(newYear, newMonth);
       this.onGetSignUp();
-     
+
     }
 
     //console.log(this.data.cur_month);
@@ -165,14 +165,11 @@ Page({
   //获取当前用户该任务的签到数组
   onGetSignUp: function () {
 
-    // this.setData({
-    //   // signUp: [{ date: '2019 / 10 / 31', isSign: true }, { date: '2019 / 10 / 02', isSign: true }, { date: '2019 / 10 / 01', isSign: true }, { date: '2019 / 10 / 03', isSign: true }] ,
-    //   //      count: 0
-    //   //    });
+   
     var that = this;
     var month = that.data.cur_month;
-  
-    if (month < 10){
+
+    if (month < 10) {
       console.log(month);
       month = '0' + month
     }
@@ -186,22 +183,22 @@ Page({
 
       method: 'GET',
       data: {
-        date : date,
+        date: date,
         user: user
       },
 
       success: function (res) {
         console.log(res);
 
-         that.setData({
-            signUp: res.data.data,
-           count: res.data.data.length
+        that.setData({
+          signUp: res.data.data,
+          count: res.data.data.length
         })
-         //获取后就判断签到情况
-         that.onJudgeSign();
+        //获取后就判断签到情况
+        that.onJudgeSign();
       },
       fail: function (res) {
-       
+
 
       }
     })
@@ -209,20 +206,46 @@ Page({
 
 
     this.onJudgeSign();
-    // var that = this;
-    // var Task_User = Bmob.Object.extend("task_user");
-    // var q = new Bmob.Query(Task_User);
-    // q.get(that.data.objectId, {
-    //   success: function (result) {
-    //     that.setData({
-    //       signUp: result.get("signUp"),
-    //       count: result.get("score")
-    //     });
-    //     //获取后就判断签到情况
-    //     that.onJudgeSign();
-    //   },
-    //   error: function (object, error) {
-    //   }
-    // });
+    
+  },
+  findmeets:function(e){
+    var that = this;
+    var user = getApp().globalData.user;
+    var month = this.data.cur_month;
+    var day = e.currentTarget.dataset.index;
+    if (month < 10) {
+      console.log(month);
+      month = '0' + month
+    }
+    if (day < 10) {
+      console.log(day);
+      day = '0' + day
+    }
+    console.log(month);
+    var date = this.data.cur_year + '-' + month + '-' + day;
+    wx.request({
+
+      // url: getApp().globalData.weburl + '/api/wxRequest/approve/' +id+ '/P',
+      url: getApp().globalData.weburl + '/api/wxRequest/meets',
+
+      method: 'GET',
+      data: {
+        user:user,
+        date:date
+      
+      },
+      success: function (res) {
+        console.log(res);
+
+        that.setData({
+
+          meets: res.data.data
+        })
+      },
+      fail: function (res) {
+
+
+      }
+    })
   }
 })

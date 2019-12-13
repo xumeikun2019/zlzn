@@ -1,12 +1,21 @@
 <view class="page">
   <view class="page__hd">
-    <view class="page__title">待办审批</view>
+
 
   </view>
   <view class="page__bd">
 
-
-    <view class="weui-cells " wx:for="{{approvalList}}">
+    <view class="tabbar">
+      <scroll-view scroll-x="true" class="weui-navbar">
+        <block wx:for-items="{{tabs}}" wx:key="{{index}}">
+          <view id="{{item.id}}" class="{{activeIndex == item.id ?'item_on':''}} default-item" bindtap="tabClick" style="width:{{tabW}}px">
+            {{item.cname}}
+          </view>
+        </block>
+        <view class="weui-navbar-slider" style="transform:translateX({{slideOffset}}px);"></view>
+      </scroll-view>
+    </view>
+    <view class="weui-cells " wx:if="{{visitor == true}}" wx:for="{{approvalList}}">
 
 
       <view class="weui-cell weui-cell_access" data-index="{{item.id}}" bindtap='approval'>
@@ -25,6 +34,53 @@
         <view class="weui-cell__bd">{{item.user_name}}</view>
         <view class="weui-cell__bd">身份证号</view>
         <view class="weui-cell__bd">{{item.user_card}}</view>
+      </view>
+      <view class="interval">
+
+      </view>
+
+
+    </view>
+
+
+
+
+    <view class="weui-cells " wx:if="{{meeting == true}}" wx:for="{{approvalMeetList}}">
+
+
+      <view class="weui-cell weui-cell_access" data-index="{{item.id}}" bindtap='approvalMeet'>
+        <view class="weui-cell__bd">{{item.meeting_name}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">审批</view>
+      </view>
+      <view class="weui-cell weui-cell_access">
+        <view class="weui-cell__bd">会议地点</view>
+        <view class="weui-cell__bd">{{item.name}}</view>
+
+      </view>
+      <view class="weui-cell weui-cell_access">
+        <view class="weui-cell__bd">主持人</view>
+        <view class="weui-cell__bd">{{item.order_zcr_id}}</view>
+
+      </view>
+       <view class="weui-cell weui-cell_access">
+        <view class="weui-cell__bd">预约人</view>
+        <view class="weui-cell__bd">{{item.realname}}</view>
+
+      </view>
+       <view class="weui-cell weui-cell_access">
+        <view class="weui-cell__bd">预约部门</view>
+        <view class="weui-cell__bd">{{item.dep}}</view>
+
+      </view>
+       <view class="weui-cell weui-cell_access">
+        <view class="weui-cell__bd">开始时间</view>
+        <view class="weui-cell__bd">{{item.time_start}}</view>
+
+      </view>
+      <view class="weui-cell weui-cell_access">
+        <view class="weui-cell__bd">结束时间</view>
+        <view class="weui-cell__bd">{{item.time_end}}</view>
+
       </view>
       <view class="interval">
 

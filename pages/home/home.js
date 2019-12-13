@@ -5,45 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    bnrUrl:[{
-      url: '../../images/banner.jpg',
-      
-    },{
-
-        url: '../../images/banner2.png',
-    }
-    ],
-    plateArray: [{
-      url: '../news/news',
-      image: '../../images/news.jpg',
-      title: '消息通知'
-    },
-    {
-      url: '../approval/approval',
-      image: '../../images/approve.jpg',
-      title: '代办审批'
-    },
-    {
-      url: '../myCheck/myCheck',
-      image: '../../images/check.jpg',
-      title: '打卡记录'
-    },
-    {
-      url: '../face/face',
-      image: '../../images/face.jpg',
-      title: '人脸采集'
-    },
-      {
-        url: '../mettingCheck/mettingCheck',
-        image: '../../images/check.png',
-        title: '会议室签到'    
-      }
-      ,
-      {
-        url: '../signOut/signOut',
-        image: '../../images/quit.png',
-        title: '退出登录'
-      }
+    bnrUrl:[
     ]
 
 
@@ -53,8 +15,127 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log("role"+getApp().globalData.role);
+    
+    if (getApp().globalData.role.indexOf("c88fcb9800fa11ea875400e081bbbd32") != '-1') {
 
-   
+      this.setData({
+
+        bnrUrl: [{
+          url: '../../images/banner.jpg',
+
+        }
+        ],
+        plateArray: [{
+          url: '../news/news',
+          image: '../../images/news.jpg',
+          title: '消息通知'
+        },
+        {
+          url: '../approval/approval',
+          image: '../../images/approve.jpg',
+          title: '代办审批'
+        },
+        {
+          url: '../leaderMeets/leaderMeets',
+          image: '../../images/leader.png',
+          title: '领导会议'
+        },
+
+        {
+          url: '../companyMeets/companyMeets',
+          image: '../../images/company.png',
+          title: '公司会议'
+        }
+          ,
+        {
+          url: '../face/face',
+          image: '../../images/face.jpg',
+          title: '人脸采集'
+        },
+        {
+          url: '../mettingCheck/mettingCheck',
+          image: '../../images/check.png',
+          title: '会议签到'
+        },
+        {
+          url: '../myCheck/myCheck',
+          image: '../../images/check.jpg',
+          title: '打卡记录'
+        }
+      
+          ,
+        {
+          url: '../signOut/signOut',
+          image: '../../images/quit.png',
+          title: '退出登录'
+        }
+
+        ]
+
+      })
+
+    } else {
+      this.setData({
+
+        bnrUrl: [{
+          url: '../../images/banner.jpg',
+
+        }],
+        plateArray: [{
+          url: '../news/news',
+          image: '../../images/news.jpg',
+          title: '消息通知'
+        },
+        {
+          url: '../approval/approval',
+          image: '../../images/approve.jpg',
+          title: '代办审批'
+        },
+        // {
+        //   url: '../leaderMeets/leaderMeets',
+        //   image: '../../images/leader.png',
+        //   title: '领导会议'
+        // },
+
+        // {
+        //   url: '../companyMeets/companyMeets',
+        //   image: '../../images/company.png',
+        //   title: '公司会议'
+        // }
+        //   ,
+        {
+          url: '../face/face',
+          image: '../../images/face.jpg',
+          title: '人脸采集'
+        },
+        {
+          url: '../mettingCheck/mettingCheck',
+          image: '../../images/check.png',
+          title: '会议签到'
+        },
+        {
+          url: '../myCheck/myCheck',
+          image: '../../images/check.jpg',
+          title: '打卡记录'
+        }
+          // ,
+          // {
+          //   url: '../meets/meets',
+          //   image: '../../images/check.jpg',
+          //   title: '会议记录'
+          // }
+          ,
+        {
+          url: '../signOut/signOut',
+          image: '../../images/quit.png',
+          title: '退出登录'
+        }
+
+        ]
+      })
+
+    }
 
   },
 

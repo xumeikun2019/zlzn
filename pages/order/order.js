@@ -11,13 +11,15 @@ Page({
       ['分公司一', '分公司二', '分公司三', '分公司四', '分公司五'],
       ['张三', '李四']
     ],
-
+    userArray:[[]],
+    userIndex:[0],
     multiIndex: [0, 0, 0],
     amount: "",
     amount1: [0],
     idcardArr: [],
     vnameArr: [],
-    url: getApp().globalData.imgUrl,
+    phoneArr:[],
+    url: getApp().globalData.imgUrl + "/finance/upload/common/",
     imgUrl: [],
     forminfo:""
 
@@ -39,6 +41,15 @@ Page({
     this.setData({
 
       vnameArr: vnameArr
+    })
+  },
+  initphone: function (e) {
+    console.log(e);
+    var phoneArr = this.data.phoneArr;
+    phoneArr[e.currentTarget.dataset.index] = e.detail.value;
+    this.setData({
+
+      phoneArr: phoneArr
     })
   },
   /**
@@ -135,7 +146,7 @@ Page({
             that.setData({
               currnetDepTwo: defaultCode // 存下当前选择的城市key
             })
-            that.getDepUser(defaultCode); // 使用第一项当作参数获取第二级数据
+            that.getDepThree(defaultCode); // 使用第一项当作参数获取第二级数据
 
           }
         }
@@ -148,10 +159,65 @@ Page({
 
   },
   /**
+     * 获取部门第三级
+     */
+  getDepThree: function (id) {
+    console.log(id)
+    var that = this;
+    wx.request({
+
+      url: getApp().globalData.weburl + '/api/wxRequest/getDepartmentThree.do',
+      data: {
+        id: id
+
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
+
+        //console.log(res.data.data);
+
+
+        var depThree = [];
+        var depThreeList = [];
+        for (var i = 0; i < res.data.data.length; i++) {
+          console.log(res.data.data[i].name);
+          depThree.push(res.data.data[i].name)
+          depThreeList.push(res.data.data[i])
+        }
+        //console.log(depTwo);
+        that.setData({
+          multiArray: [that.data.depOne, that.data.depTwo, depThree],
+          depThree,
+          depThreeList
+        })
+        if (depThreeList.length > 0) {
+          var defaultCode = depThreeList[0].id
+          if (defaultCode) {
+            that.setData({
+              currnetDepThree: defaultCode // 存下当前选择的城市key
+            })
+            //that.getDepThree(defaultCode); // 使用第一项当作参数获取第二级数据
+
+          }
+        }
+      },
+      fail: function (res) {
+        console.log(".....fail.....");
+      }
+    })
+
+
+  },
+
+
+  /**
    * 获取部门用户
    */
   getDepUser: function(id) {
-    console.log(id)
+    console.log("888"+id)
     var that = this;
     wx.request({
 
@@ -177,7 +243,7 @@ Page({
         }
 
         that.setData({
-          multiArray: [that.data.depOne, that.data.depTwo, userArr],
+          userArray: [userArr],
           userArr,
           userList
         })
@@ -192,41 +258,6 @@ Page({
 
 
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
   /**
    * 页面上拉触底事件的处理函数
    */
@@ -243,14 +274,45 @@ Page({
   bindPickerChange: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
-      index: e.detail.value
+      index: e.detail.value,
+     
     })
   },
   bindMultiPickerChange: function(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    console.log('picker发送选择--改变，携带值为', e.detail.value)
+   
     this.setData({
       multiIndex: e.detail.value
     })
+    console.log(this.data.multiArray[2][this.data.multiIndex[2]]);
+    if (this.data.multiArray[2][this.data.multiIndex[2]]){
+      console.log(this.data.multiArray[2][this.data.multiIndex[2]]);
+
+      this.getDepUser(this.data.depThreeList[this.data.multiIndex[2]].id);
+    
+    } else if (this.data.multiArray[1][this.data.multiIndex[1]]) {
+      console.log(this.data.multiArray[1][this.data.multiIndex[1]]);
+      this.getDepUser(this.data.depTwoList[this.data.multiIndex[1]].id);
+    } else if (this.data.multiArray[0][this.data.multiIndex[0]]) {
+      console.log(this.data.multiArray[0][this.data.multiIndex[0]]);
+     
+      this.getDepUser(this.data.depOneList[this.data.multiIndex[0]].id);
+    } else {
+      wx.showModal({
+        title: '',
+        content: '未选择部门',
+      })
+
+    }
+  },
+  bindMultiPickerChangeUser: function (e) {
+    console.log('picker发送选择--改变，携带值为', e.detail.value)
+
+    this.setData({
+      userIndex: e.detail.value
+    })
+    console.log(this.data.userList[this.data.userIndex[0]].user_id)
+
   },
   bindMultiPickerColumnChange: function(e) {
     console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
@@ -276,7 +338,7 @@ Page({
         // var depTwoKey = this.data.depTwoList[e.detail.value].id
         var currentDepTwo = this.data.depTwoList[e.detail.value].id
         if (currentDepTwo != this.data.currentDepTwo) {
-          this.getDepUser(currentDepTwo)
+          this.getDepThree(currentDepTwo)
         }
         //this.getDepUser(depTwoKey)
         data.multiIndex[2] = 0
@@ -287,70 +349,6 @@ Page({
 
   },
 
-
-  // bindMultiPickerColumnChange: function (e) {
-  //   console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
-  //   var data = {
-  //     multiArray: this.data.multiArray,
-  //     multiIndex: this.data.multiIndex
-  //   };
-  //   data.multiIndex[e.detail.column] = e.detail.value;
-  //   switch (e.detail.column) {
-  //     case 0:
-  //       switch (data.multiIndex[0]) {
-  //         case 0:
-  //           data.multiArray[1] = ['分公司一', '分公司二', '分公司三', '分公司四', '分公司五'];
-  //           data.multiArray[2] = ['分公司一', '分公司二'];
-  //           break;
-  //         case 1:
-  //           data.multiArray[1] = ['分公司一', '分公司二', '分公司三'];
-  //           data.multiArray[2] = ['分公司一', '分公司二'];;
-  //           break;
-  //       }
-  //       data.multiIndex[1] = 0;
-  //       data.multiIndex[2] = 0;
-  //       break;
-  //     case 1:
-  //       switch (data.multiIndex[0]) {
-  //         case 0:
-  //           switch (data.multiIndex[1]) {
-  //             case 0:
-  //               data.multiArray[2] = ['张三', '李四'];
-  //               break;
-  //             case 1:
-  //               data.multiArray[2] = ['张三', '李四'];
-  //               break;
-  //             case 2:
-  //               data.multiArray[2] = ['张三', '李四'];
-  //               break;
-  //             case 3:
-  //               data.multiArray[2] = ['张三', '李四'];
-  //               break;
-  //             case 4:
-  //               data.multiArray[2] = ['张三', '李四'];
-  //               break;
-  //           }
-  //           break;
-  //         case 1:
-  //           switch (data.multiIndex[1]) {
-  //             case 0:
-  //               data.multiArray[2] = ['张三', '李四'];
-  //               break;
-  //             case 1:
-  //               data.multiArray[2] = ['张三', '李四'];
-  //               break;
-  //             case 2:
-  //               data.multiArray[2] = ['张三', '李四'];
-  //               break;
-  //           }
-  //           break;
-  //       }
-  //       data.multiIndex[2] = 0;
-  //       console.log(data.multiIndex);
-  //       break;
-  //   }
-  //   this.setData(data);
-  // },
   bindDateChange: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
@@ -442,11 +440,66 @@ Page({
     })
   },
   formSubmit(e) {
+    console.log("this.data.userList");
+    console.log(this.data.userArray);
+
+   
+
+    if (this.data.userArray[0].length == 0) {
+      wx.showModal({
+        title: '',
+        content: '请选择访问人',
+      })
+      return;
+
+    }
+  
+    if (this.data.userArray.length == 0){
+      wx.showModal({
+        title: '',
+        content: '请选择访问人',
+      })
+      return;
+
+    }
+
+    if (this.data.amount == "" || this.data.amount == 0 ) {
+      wx.showModal({
+        title: '',
+        content: '请填写来访人数',
+      })
+      return;
+
+    }
+    if (this.data.vnameArr.length < this.data.amount){
+      wx.showModal({
+        title: '',
+        content: '请输入访客姓名',
+      })
+      return;
+    }
+    if (this.data.idcardArr.length < this.data.amount) {
+      wx.showModal({
+        title: '',
+        content: '请输入访客身份证',
+      })
+      return;
+    }
+    if (this.data.phoneArr.length < this.data.amount) {
+      wx.showModal({
+        title: '',
+        content: '请输入访客联系方式',
+      })
+      return;
+    }
+    if (this.data.imgUrl.length < this.data.amount) {
+      wx.showModal({
+        title: '',
+        content: '请上传访客照片',
+      })
+      return;
+    }
     var that = this;
-    console.log(this.data.idcardArr);
-    console.log(this.data.imgUrl);
-    console.log(this.data.multiIndex[2]);
-    console.log(this.data.userList[this.data.multiIndex[2]].user_id);
     var openid = getApp().globalData.openid;
     var {
 
@@ -469,9 +522,10 @@ Page({
         idcardArr: this.data.idcardArr,
         vnameArr: this.data.vnameArr,
         imgUrl: this.data.imgUrl,
+        phoneArr :this.data.phoneArr,
         vNum: this.data.vNum,
         matter: this.data.matter,
-        userid: this.data.userList[this.data.multiIndex[2]].user_id,
+        userid: this.data.userList[this.data.userIndex[0]].user_id,
         weid: openid
       },
       header: {
@@ -487,7 +541,7 @@ Page({
           })
           that.setData({
             forminfo:"",
-            imgUrl:""
+            imgUrl: []
           })
         
         } else{

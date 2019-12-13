@@ -9,10 +9,16 @@
 .img{
 
   height:50vh;
-  width: 80vw;
+  width: 70vw;
   border: 1px dashed #70bcf6; 
 }
 .weui-btn{
 
   width: 50vw;
+}
+
+.myCanvas{
+
+  position: absolute;
+  top: -1000px;
 }

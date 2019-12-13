@@ -1,0 +1,72 @@
+<!--pages/Calendar/Calendar.wxml-->
+<!-- 打卡日历页面 -->
+<view class='all'>
+  <view class="bar">
+    <!-- 上一个月 -->
+    <view class="previous" bindtap="handleCalendar" data-handle="prev">
+      <image src='../../images/pre.png'></image>
+    </view>
+    <!-- 显示年月 -->
+    <view class="date">{{cur_year}} 年 {{cur_month}} 月</view>
+    <!-- 下一个月 -->
+    <view class="next" bindtap="handleCalendar" data-handle="next">
+      <image src='../../images/next.png'></image>
+    </view>
+  </view>
+  <!-- 显示星期 -->
+  <view class="week">
+    <view wx:for="{{weeks_ch}}" wx:key="{{index}}" data-idx="{{index}}">{{item}}</view>
+  </view>
+  <view class='days'>
+    <!-- 列 -->
+    <view class="columns" wx:for="{{days.length/7}}" wx:for-index="i" wx:key="i">
+      <view wx:for="{{days}}" wx:for-index="j" wx:key="j">
+        <!-- 行 -->
+        <view class="rows" wx:if="{{j/7 == i}}">
+          <view class="rows" wx:for="{{7}}" wx:for-index="k" wx:key="k"  >
+            <!-- 每个月份的空的单元格 -->
+            <view class='cell' wx:if="{{days[j+k].date == null}}">
+              <text decode="{{true}}">&nbsp;&nbsp;</text>
+            </view>
+            <!-- 每个月份的有数字的单元格 -->
+            <view class='cell' wx:else>
+              <!-- 当前日期已签到 -->
+              <view  style='background-color:#83C75D'  data-index='{{days[j+k].date}}' bindtap="findmeets"  class='cell'>
+                <text>{{days[j+k].date}}</text>
+              </view>
+            
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 坚持打卡天数 -->
+  <view class='count'>
+        <view wx:if="{{meets == ''}}">
+            <text>暂无会议</text>
+        </view>
+       
+
+    <view class="tableView" wx:else>
+    <view class="table_header">
+      <view class="th th1">会议名称</view>
+      <view class="th th2">会议地点</view>
+      <view class="th th3">会议时间</view>
+    </view>
+    <!-- <block> 并不是一个组件，它仅仅是一个包装元素，不会在页面中做任何渲染，只接受控制属性。 -->
+    <block wx:for="{{meets}}" wx:for-index="index" wx:key="i">
+      <view class="table_cell">
+        <view class="td td1">{{item.meeting_name}}</view>
+        <view class="td td2">{{item.name}}</view>
+        <view class="td td3">{{item.time_start}}</view>
+      </view>
+    </block>
+
+  </view>
+            <text>{{item.meeting_name}}  {{item.time_start}}</text>
+        </view>
+
+ 
+
+</view>

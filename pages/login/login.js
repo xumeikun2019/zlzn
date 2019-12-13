@@ -78,23 +78,7 @@ Page({
         hasUserInfo: true
       })
 
-      //插入登录的用户的相关信息到数据库
-      // wx.request({
-      //   url: '',
-      //   data: {
-      //     // 根据自己的需求传参数
-      //       openid: getApp().globalData.openid
-      //   },
-      //   header: {
-      //     'content-type': 'application/json'
-      //   },
-      //   success: function (res) {
-      //     //从数据库获取用户信息
-      //    // that.queryUsreInfo();
-      //     console.log("插入小程序登录用户信息成功！");
-      //   }
-      // });
-      //授权成功后，跳转进入小程序首页
+     
       wx.redirectTo({
         url: '../sign/sign'
       })
@@ -113,24 +97,5 @@ Page({
       })
     }
   },
-  // //获取用户信息接口
-  // queryUsreInfo: function () {
-
-
-  //   wx.request({
-  //     url: getApp().globalData.weburl + '/service/cxqx.do',
-  //     data: {
-  //       // 根据自己的需求传参数
-  //       openid: getApp().globalData.openid
-  //     },
-  //     header: {
-  //       'content-type': 'application/json'
-  //     },
-  //     success: function (res) {
-  //       // 拿到自己后台传过来的数据，自己作处理
-  //       console.log(res.data);
-  //     }
-  //   })
-  // },
-
+ 
 })

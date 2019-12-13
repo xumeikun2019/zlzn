@@ -1,0 +1,44 @@
+<view class="page">
+  <view class="page__hd">
+
+  </view>
+
+
+  <view class="page__bd ">
+  
+        <view class="weui-cell__bd">会议名称：{{meet.meeting_name}}</view>
+      
+     
+        <view class="weui-cell__bd">会议开始时间：{{meet.time_start}}</view>
+        <view class="weui-cell__bd">会议结束时间：{{meet.time_end}}</view>
+    <button class="weui-btn" type="primary" bindtap="later">延时</button>
+    <button class="weui-btn" type="primary" bindtap="end">结束</button>
+  
+      
+  </view>
+
+  <view class='toast-box' hidden='{{!ifName}}'>
+        <view class='toastbg'></view>
+        <view class='showToast'>
+            <view class='toast-title'>
+                <text>延时</text>
+            </view>
+            <view class='toast-main'>
+                <view class='toast-input'>
+                    <input placeholder='请输入延时时间' bindinput='setValue' data-name='stuEidtName' value="{{time}}"></input>
+                </view>
+                <view class='toast-input'>
+                    <textarea   class='weui-textarea' placeholder='请输入延时原因' bindinput='setValueReason' data-name='stuEidtName2' value="{{reason}}"></textarea>
+                </view>
+            </view>
+            <view class='toast-button'>
+                <view class='button1'>
+                    <button catchtap='cancel'>取消</button>
+                </view>
+                <view class='button2'>
+                    <button catchtap='confirm'>确定</button>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

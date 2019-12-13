@@ -13,8 +13,8 @@
   border: 1px dashed #70bcf6; 
 }
 .weui-btn{
-
   width: 60vw;
+  
 }
 
 
@@ -68,6 +68,7 @@
     padding-right: 2vh;
     padding-top: 1vh;
     padding-bottom: 1vh;
+     text-align: center;
 }
  
 .toast-button {
@@ -101,4 +102,8 @@
 .picker {
     padding-top: 1vh;
     padding-bottom: 1vh;
+}
+.weui-cell__bd{
+  font-size: 0.9em;
+  padding-top:10rpx; 
 }

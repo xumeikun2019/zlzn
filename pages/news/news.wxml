@@ -7,15 +7,13 @@
        
 
         <view class="weui-cells__title"></view>
-        <view class="weui-cells weui-cells_after-title">
-            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <view class="weui-cell__bd">2019/9/2</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access">中秋节放假通知</view>
-            </navigator>
-            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <view class="weui-cell__bd">2019/9/3</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access">安全管理规定</view>
-            </navigator>
+        <view class="weui-cells weui-cells_after-title" wx:for="{{messageList}}" wx:for-item="item">
+           <view class="weui-cell weui-cell_access"  wx:for="{{item}}"  wx:for-item="items" >
+            <view class="weui-cell__bd">{{items}}</view>
+          </view>
+            <view class="interval">
+
+            </view>
         </view>
 
         
