@@ -21,8 +21,8 @@ Page({
     phoneArr:[],
     url: getApp().globalData.imgUrl + "/finance/upload/common/",
     imgUrl: [],
-    forminfo:""
-
+    forminfo:"",
+    imgurl: getApp().globalData.imgUrl
   },
 
   initidcard: function(e) {
@@ -408,12 +408,9 @@ Page({
       success: function(res) {
         var tempFilePaths = res.tempFilePaths
         wx.uploadFile({
-          url: getApp().globalData.weburl + '/api/wxRequest/uploadImage.do',
+          url: getApp().globalData.weburl + '/api/wxRequest/uploadVisitorImage.do',
           filePath: tempFilePaths[0],
           name: 'file',
-          formData: {
-            'user': user
-          },
           success: function(res) {
             console.log(res);
             var data = res.data;
@@ -556,6 +553,10 @@ Page({
       },
       fail: function(res) {
         console.log(".....fail.....");
+        wx.showModal({
+          title: '预约失败',
+          content: '请检查网络链接。。。',
+        })
       }
     })
 

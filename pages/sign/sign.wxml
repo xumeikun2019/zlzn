@@ -1,6 +1,6 @@
 <view class = 'page'>
   
-  <image src = '../../images/login.jpg' class='bkimg'></image>
+  <image src = '{{imgurl}}/finance/statics/images/login.jpg' class='bkimg'></image>
   <view class="z_index">
     <view  class='logo'>
     <image src = '../../images/logo.png' class="log_img"></image>

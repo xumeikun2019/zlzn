@@ -1,4 +1,4 @@
-<image src='../../images/login.jpg' class='bkimg'></image>
+<image src='{{imgurl}}/finance/statics/images/login.jpg' class='bkimg'></image>
 
 <view class='page'>
   <view class="page__bd" id='order'>

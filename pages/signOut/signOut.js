@@ -25,17 +25,37 @@ Page({
             url: getApp().globalData.weburl + '/api/wxRequest/users/'+openId,
             method: 'PUT',
             success: function (res) {
-              wx.showToast({
-                title: '解除成功',
-                icon: 'success',
-                duration: 20000
-              })
-              wx.reLaunch({
-                url: '../login/login',
-              })
+              console.log(res.data.result)
+              if (res.data.result == 'ok'){
+                wx.showToast({
+                  title: '解除成功',
+                  icon: 'success',
+                  duration: 20000
+                })
+                wx.reLaunch({
+                  url: '../login/login',
+                })
+
+              } else {
+                console.log(res.data.result)
+                wx.showToast({
+                  title: '解除失败',
+                  icon: 'success',
+                  duration: 20000
+                })
+                // wx.reLaunch({
+                //   url: '../login/login',
+                // })
+              }
+           
             },
             fail: function (res) {
               console.log(".....fail.....");
+              wx.showToast({
+                title: '解除失败,请检查网络链接。。。',
+                icon: 'success',
+                duration: 20000
+              })
             }
           })
 

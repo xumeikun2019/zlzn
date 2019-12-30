@@ -36,6 +36,21 @@ Page({
           image: '../../images/approve.jpg',
           title: '代办审批'
         },
+          {
+            url: '../meetOrder/meetOrder',
+            image: '../../images/order.png',
+            title: '会议预约'
+          },
+          {
+            url: '../myMeetOrder/myMeetOrder',
+            image: '../../images/myOrder.png',
+            title: '我的预约'
+          },
+          {
+            url: '../meets/meets',
+            image: '../../images/news.jpg',
+            title: '我的会议'
+          },
         {
           url: '../leaderMeets/leaderMeets',
           image: '../../images/leader.png',
@@ -88,9 +103,24 @@ Page({
           title: '消息通知'
         },
         {
+          url: '../meetOrder/meetOrder',
+          image: '../../images/order.png',
+            title: '会议预约'
+          },
+          {
+            url: '../myMeetOrder/myMeetOrder',
+            image: '../../images/myOrder.png',
+            title: '我的预约'
+          },
+          {
+            url: '../meets/meets',
+            image: '../../images/news.jpg',
+            title: '我的会议'
+          },
+        {
           url: '../approval/approval',
           image: '../../images/approve.jpg',
-          title: '代办审批'
+          title: '待办审批'
         },
         // {
         //   url: '../leaderMeets/leaderMeets',
@@ -139,47 +169,7 @@ Page({
 
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
+ 
 
   /**
    * 用户点击右上角分享

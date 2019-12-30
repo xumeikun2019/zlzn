@@ -1,0 +1,246 @@
+<image src='{{imgurl}}/finance/statics/images/login.jpg' class='bkimg'></image>
+
+<view class='page'>
+  <view class="page__bd" id='order'>
+    <view class="weui-cells__title">预约</view>
+
+    <form bindsubmit="formSubmit" bindreset="formReset" style="">
+
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">预约人电话</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="请输入预约人联系方式" name='phone' value='{{forminfo}}' placeholder-class='placeholder' />
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">参会人数</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="请输入参会人数" name='amount'  value='{{forminfo}}' placeholder-class='placeholder' />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">主持人</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="请输入主持人名称" name='host' value='{{forminfo}}' placeholder-class='placeholder' />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">预约日期</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker mode="date" value="{{date}}" start="{{today}}" bindchange="bindDateChange" fields="day">
+              <view class="picker">
+                当前选择: {{date}}
+              </view>
+            </picker>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">会议室状态</view>
+          </view>
+          <view class="weui-cell__bd">
+            <button bindtap="meetState">查看</button>
+          </view>
+        </view>
+       <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">选择会议室</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker mode="multiSelector" bindchange="bindMultiPickerChangeMeet"  value="{{meetRoomIndex}}" range="{{meetRoomArray}}">
+              <view class="picker ">
+                当前选择：{{meetRoomArray[0][meetRoomIndex[0]]}}
+              </view>
+            </picker>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">开始时间</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker mode="time" bindchange="bindTimeChange1" start="{{now}}"  value="{{time1}}">
+              <view class="picker">
+                 当前选择：{{time1}}
+              </view>
+            </picker>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">结束时间</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker mode="time" bindchange="bindTimeChange2" start="{{now}}" >
+              <view class="picker">
+                当前选择： {{time2}}
+              </view>
+            </picker>
+          </view>
+        </view>
+        <!-- <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">领导</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{leaderIndex}}" range="{{leaderArray}}">
+          <view class="picker ">
+            当前选择：{{leaderArray[0][leaderIndex]}}
+          </view>
+        </picker>
+      </view>
+    </view> -->
+
+        <view class='weui-cell weui-cell_input' bindtap='isPer'>
+          <view class='weui-cell__hd'>
+            <view class="weui-label">参会领导</view>
+          </view>
+          <view class='class-choose'>
+            <text class='color333 perItem' wx:if="{{depValue.length>0}}">
+        <block wx:for="{{depValue}}" wx:key="index"> {{item}} </block>
+      </text>
+            <text wx:else>默认全部</text>
+
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">部门</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker mode="multiSelector" bindchange="bindDepPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+          <view class="picker ">
+                当前选择：{{multiArray[0][multiIndex[0]]}}{{multiArray[1][multiIndex[1]]}}{{multiArray[2][multiIndex[2]]}}
+          </view>
+        </picker>
+      </view>
+    </view>
+ <view class='weui-cell weui-cell_input' bindtap='isDep'>
+          <view class='weui-cell__hd'>
+            <view class="weui-label">参会部门</view>
+          </view>
+    <view class='class-choose'>
+      <text class='color333 perItem' wx:if="{{checkValue.length>0}}">
+        <block wx:for="{{checkValue}}" wx:key="index"> {{item}} </block>
+      </text>
+      <text wx:else>默认全部</text>
+    </view>
+  </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">会议名称</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="请输入会议名称" name='meetName' placeholder-class='placeholder' value='{{forminfo}}' />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">备注</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="请输入备注" name='remark' placeholder-class='placeholder' value='{{forminfo}}' />
+          </view>
+        </view>
+      </view>
+ <button class="weui-btn" type="primary" formType="submit" style='width:80vw;border-radius:5px;background-color: rgb(30, 196, 156)'>预约</button>
+      <button class="weui-btn"  type="primary" bindtap="back" style='width:80vw;border-radius:5px;background-color: rgb(30, 196, 156)'>返回</button> 
+    </form>
+  </view>
+
+
+<!-- 部门列表 -->
+<view class='typeListBox' wx:if="{{isMeet}}">
+  <view class='wrap'>
+    <view class='nav'>
+      <text class='active'>会议室已预约时间</text>
+      <!-- <text class='{{navId==2?"active":""}}' data-id='2' bindtap='getNav'>人员</text> -->
+    </view>
+    <view class='checkbox-con'>
+      <view wx:for="{{meetStates}}">
+         {{item.name}}
+         <view wx:for="{{item.value}}"  wx:for-item="value" >
+        {{value.time_start}}--{{value.time_end}}
+         
+      </view>
+      
+      </view>
+       <view  wx:if="{{meetStates.length == 0}}">
+          选择日期暂无已预约会议
+      </view>
+    </view>
+    <view class='btn1'>
+      
+      <button class='' bindtap='confirmMeet'>确定</button>
+    </view>
+  </view>
+</view>
+
+<!-- 部门列表 -->
+<view class='typeListBox' wx:if="{{isDep}}">
+  <view class='wrap'>
+    <view class='nav'>
+      <text class='active'>部门</text>
+      <!-- <text class='{{navId==2?"active":""}}' data-id='2' bindtap='getNav'>人员</text> -->
+    </view>
+    <view class='checkbox-con'>
+      <scroll-view scroll-y style="height: 700rpx;" scroll-top="{{scrollTop}}">
+        <checkbox-group bindchange="checkboxChange" class="checkbox-group">
+          <view wx:for="{{checkboxArr}}" wx:key="item.name">
+            <label class="{{item.checked?'checkbox checked':'checkbox'}}" bindtap='checkbox' data-index="{{index}}">
+              <checkbox value="{{item.name}}" checked="{{item.checked}}"/>{{item.name}}
+            </label>
+          </view>
+        </checkbox-group>
+      </scroll-view>
+    </view>
+    <view class='btn1'>
+      <button class='bgFFF' bindtap='cancel'>取消</button>
+      <button class='' bindtap='confirm'>确定</button>
+    </view>
+  </view>
+</view>
+  <!-- 成员列表 -->
+  <view class='typeListBox' wx:if="{{isPer}}">
+    <view class='wrap'>
+      <!-- 字母锚点 -->
+      <view class='anchor'>
+        <view bindtap="jumpTo" wx:for="{{words}}" wx:key="i" data-opt="{{item}}">{{item}}</view>
+      </view>
+
+
+      <view class='nav'>
+        <text class='active'>领导</text>
+      </view>
+      <view class='checkbox-con'>
+        <scroll-view scroll-y style="height: 700rpx;" scroll-with-animation='true' scroll-top="{{scrollTop}}" scroll-into-view="{{toView}}">
+          <view class='typeList'>
+            <checkbox-group class="radio-group" bindchange="checkBoxPer">
+              <view wx:for="{{personnelArr}}" wx:key="index" wx:for-item="itemName" wx:for-index="itemNameInd">
+                <view class='typeList-item-title' id="{{itemName.name}}">{{itemName.name}}</view>
+                <label class='typeList-item' data-itemnameind='{{itemNameInd}}' bindtap="checkPer" wx:for="{{itemName.a}}" wx:key="a" wx:for-item="item" data-index="{{index}}">
+                  <checkbox value="{{item.name}}" checked="{{item.checked}}" color='#3eace2' />
+                  <text>{{item.name}}</text>
+                </label>
+              </view>
+            </checkbox-group>
+          </view>
+        </scroll-view>
+      </view>
+      <view class='btn1'>
+        <button class='bgFFF' bindtap='cancel'>取消</button>
+        <button class='' bindtap='confirmPer'>确定</button>
+      </view>
+    </view>
+  </view>
+</view>

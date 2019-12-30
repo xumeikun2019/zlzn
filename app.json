@@ -1,6 +1,5 @@
 {
   "pages": [
-  
     "pages/login/login",
     "pages/sign/sign",
     "pages/mettingCheck/mettingCheck",
@@ -15,9 +14,10 @@
     "pages/myOrder/myOrder",
     "pages/endMeets/endMeets",
     "pages/meets/meets",
-   
     "pages/leaderMeets/leaderMeets",
-    "pages/companyMeets/companyMeets"
+    "pages/companyMeets/companyMeets",
+    "pages/meetOrder/meetOrder",
+    "pages/myMeetOrder/myMeetOrder"
   ],
   "window": {
     "backgroundTextStyle": "light",

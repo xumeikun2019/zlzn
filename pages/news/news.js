@@ -40,6 +40,10 @@ Page({
       },
       fail: function (res) {
         console.log(".....fail.....");
+        wx.showModal({
+          title: '查询失败',
+          content: '请检查网络链接。。。',
+        })
       }
     })
 

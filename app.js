@@ -37,10 +37,11 @@ App({
     userInfo: null,
     openid: 0,//微信唯一标识
     //weburl: "https://smart.chinalcoc.com/finance",
-    weburl: "http://192.168.0.6:8080/finance",
+    weburl: "http://192.168.0.178:8080/finance",
     formId:0,
     user: 0,
-    imgUrl:"http://192.168.0.6:8080",
+    userid:0,
+    imgUrl:"http://192.168.0.178:8080",
     //imgUrl:"https://smart.chinalcoc.com",
     role:""
   }

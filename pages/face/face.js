@@ -109,6 +109,10 @@ Page({
       },
       fail: function (res) {
         console.log(".....fail.....");
+        wx.showModal({
+          title: '加载失败',
+          content: '请检查网络链接。。.',
+        })
       }
     })
 
@@ -121,7 +125,7 @@ Page({
       success: function (res) {
         var ctx = wx.createCanvasContext('photo_canvas');
         //设置canvas尺寸
-        var towidth = 350; //按宽度500px的比例压缩
+        var towidth = 350; //按宽度350px的比例压缩
         var toheight = Math.trunc(350 * res.height / res.width);
         that.setData({
           canvas_h: toheight
@@ -160,15 +164,28 @@ Page({
               success: function (res) {
                 wx.hideLoading();
                 console.log(res);
-                var data = res.data;
-                that.setData({
-                  imgUrl: imgurl + res.data
+                if (JSON.parse(res.data).message=="success"){
+                  console.log(JSON.parse(res.data).data);
+                  that.setData({
+                    imgUrl: imgurl + JSON.parse(res.data).data
 
-                })
-                wx.showModal({
-                  title: '',
-                  content: '上传成功',
-                })
+                  })
+                  wx.showModal({
+                    title: '',
+                    content: '上传成功',
+                  })
+
+                } else {
+                  var returnText = JSON.parse(res.data).data.split("'")[1];
+                  console.log(JSON.parse(res.data).data.split("'")[1]);
+                  wx.showModal({
+                    title: '',
+                    content: returnText,
+                  })
+                }
+                
+               
+               
               }, fail: function (err) {
                 wx.hideLoading();
                 console.log(err);
@@ -183,6 +200,10 @@ Page({
             if (res.errMsg === "canvasToTempFilePath:fail:create bitmap failed") {
               console.log("导出map失败")
             }
+            wx.showModal({
+              title: '上传失败',
+              content: '请检查网络链接。。.',
+            })
           }
         }, this)
       }, 200);

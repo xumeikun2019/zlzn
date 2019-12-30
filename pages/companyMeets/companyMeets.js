@@ -32,7 +32,7 @@ Page({
       { name: '7', value: '星期天' }
       ]//多选框
   },
-
+ 
   /**
    * 生命周期函数--监听页面加载
    */
@@ -98,10 +98,13 @@ Page({
   },
   //查询本周会议
   findMeets() {
-   
+    
     var that = this;
+   
     var companyid = 0;//部门id
+   
     if (that.data.currnetDepTwo != "") {
+    
       companyid = that.data.currnetDepTwo
     } else {
       companyid = "";
@@ -109,6 +112,7 @@ Page({
       companyid = "";
 
     }
+    
     wx.request({
 
       // url: getApp().globalData.weburl + '/api/wxRequest/approve/' +id+ '/P',
@@ -491,8 +495,9 @@ Page({
         currnetDepTwo: this.data.depOneList[this.data.multiIndex[0]].id
 
       })
+     
     }
-
+   
     
     // console.log('picker发送选择--改变，携带值为', e.detail.value[1])
     // console.log("this.data.depTwoList")

@@ -3,7 +3,8 @@ Page({
   data: {
     listData: [
      
-    ]
+    ],
+    imgurl: getApp().globalData.imgUrl
   },
   onLoad: function () {
     console.log('onLoad')
@@ -33,6 +34,10 @@ Page({
       }, 
       fail: function (res) {
         console.log(".....fail.....");
+        wx.showModal({
+          title: '签到失败',
+          content: '请检查网络链接。。。',
+        })
       }
     
     })

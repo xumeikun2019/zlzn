@@ -1,31 +1,31 @@
 // pages/approval/approval.js
 Page({
   //事件处理函数
-  approval: function (e) {
+  approval: function(e) {
     var that = this;
-    
+
     var id = e.currentTarget.dataset.index;
     wx.showModal({
       title: '审批',
       content: '',
       confirmText: "通过",
       cancelText: "不通过",
-      success: function (res) {
+      success: function(res) {
         console.log(e.currentTarget.dataset.index);
         if (res.confirm) {
           console.log('用户点击主操作')
           wx.request({
 
-           // url: getApp().globalData.weburl + '/api/wxRequest/approve/' +id+ '/P',
+            // url: getApp().globalData.weburl + '/api/wxRequest/approve/' +id+ '/P',
             url: getApp().globalData.weburl + '/api/wxRequest/approve',
 
             method: 'PUT',
-            data :{
-              state : 'P',
-              id : id
+            data: {
+              state: 'P',
+              id: id
             },
-            
-            success: function (res) {
+
+            success: function(res) {
 
               wx.showModal({
                 title: '审批通过',
@@ -33,8 +33,12 @@ Page({
               })
               that.findVisiterList()
             },
-            fail: function (res) {
+            fail: function(res) {
               console.log(".....fail.....");
+              wx.showModal({
+                title: '审批失败',
+                content: '请检查网络链接。。。',
+              })
             }
           })
 
@@ -52,24 +56,28 @@ Page({
               id: id
             },
 
-            success: function (res) {
+            success: function(res) {
               wx.showModal({
                 title: '审批不通过',
                 content: '成功',
               })
               that.onLoad();
             },
-            fail: function (res) {
+            fail: function(res) {
               console.log(".....fail.....");
+              wx.showModal({
+                title: '审批失败',
+                content: '请检查网络链接。。。',
+              })
             }
           })
         }
       }
     });
   },
-  approvalMeet: function (e) {
+  approvalMeet: function(e) {
     var that = this;
-
+    var user = getApp().globalData.user;
     var id = e.currentTarget.dataset.index;
     console.log(id);
     wx.showModal({
@@ -77,16 +85,16 @@ Page({
       content: '',
       confirmText: "通过",
       cancelText: "不通过",
-      success: function (res) {
+      success: function(res) {
         console.log(e.currentTarget.dataset.index);
         if (res.confirm) {
           console.log('用户点击主操作')
           wx.request({
 
             // url: getApp().globalData.weburl + '/api/wxRequest/approve/' +id+ '/P',
-            url: getApp().globalData.weburl + '/api/wxRequest/approve/2/'+id+'',
+            url: getApp().globalData.weburl + '/api/wxRequest/approve/3/' + user + '/' + id,
             method: 'PUT',
-            success: function (res) {
+            success: function(res) {
 
               wx.showModal({
                 title: '审批通过',
@@ -94,8 +102,12 @@ Page({
               })
               that.findMeetList()
             },
-            fail: function (res) {
+            fail: function(res) {
               console.log(".....fail.....");
+              wx.showModal({
+                title: '审批失败',
+                content: '请检查网络链接。。。',
+              })
             }
           })
 
@@ -105,24 +117,28 @@ Page({
           wx.request({
 
             // url: getApp().globalData.weburl + '/api/wxRequest/approve/' +id+ '/P',
-            url: getApp().globalData.weburl + '/api/wxRequest/approve/0/' + id +'',
+            url: getApp().globalData.weburl + '/api/wxRequest/approve/0/' + user + '/' + id,
             method: 'PUT',
-            success: function (res) {
+            success: function(res) {
               wx.showModal({
                 title: '审批不通过',
                 content: '成功',
               })
               that.onLoad();
             },
-            fail: function (res) {
+            fail: function(res) {
               console.log(".....fail.....");
+              wx.showModal({
+                title: '审批失败',
+                content: '请检查网络链接。。。',
+              })
             }
           })
         }
       }
     });
   },
-  tabClick: function (e) {
+  tabClick: function(e) {
 
     var that = this;
     that.setData({
@@ -138,13 +154,13 @@ Page({
     if (idIndex == 0) {
 
       that.setData({
-        visitor:true,
-        meeting:false
+        visitor: true,
+        meeting: false
       })
-     
+
     } else {
       that.setData({
-        meeting : true,
+        meeting: true,
         visitor: false,
       })
     }
@@ -155,41 +171,56 @@ Page({
    * 页面的初始数据
    */
   data: {
-    approvalList:[],
+    approvalList: [],
     activeIndex: 0,
     slideOffset: 0,
-    tabs: [{ id: "0", cname: "访客审批" }, { id: "1", cname: "会议审批" }],
-    visitor:true,
-    meeting:false
+    tabs: [{
+      id: "0",
+      cname: "访客审批"
+    }, {
+      id: "1",
+      cname: "会议审批"
+    }],
+    visitor: true,
+    meeting: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     // console.log("123123123123123");
     // console.log(getApp().globalData.role);
     // console.log(getApp().globalData.role.indexOf("758e47ccee1e11e9833900e081bbbd32"));
-    if (getApp().globalData.role.indexOf("c88fcb9800fa11ea875400e081bbbd32")!= '-1'){
-      
+    if (getApp().globalData.role.indexOf("c88fcb9800fa11ea875400e081bbbd32") != '-1') {
+
       this.setData({
 
-        tabs: [{ id: "0", cname: "访客审批" }, { id: "1", cname: "会议审批" }]
+        tabs: [{
+          id: "0",
+          cname: "访客审批"
+        }, {
+          id: "1",
+          cname: "会议审批"
+        }]
       })
 
-    }else{
+    } else {
       this.setData({
 
-        tabs: [{ id: "0", cname: "访客审批" }]
+        tabs: [{
+          id: "0",
+          cname: "访客审批"
+        }]
       })
 
     }
     this.findMeetList(),
-    this.findVisiterList()
-    
+      this.findVisiterList()
+
   },
 
-  findVisiterList:function(){
+  findVisiterList: function() {
     var user = getApp().globalData.user;
 
     var that = this;
@@ -200,7 +231,7 @@ Page({
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
-      success: function (res) {
+      success: function(res) {
 
         that.setData({
 
@@ -208,15 +239,19 @@ Page({
         })
         console.log(that.data.approvalList)
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log(".....fail.....");
+        wx.showModal({
+          title: '查询失败',
+          content: '请检查网络链接。。。',
+        })
       }
     })
 
 
   },
 
-  findMeetList: function () {
+  findMeetList: function() {
     var that = this;
     wx.request({
 
@@ -225,7 +260,7 @@ Page({
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
-      success: function (res) {
+      success: function(res) {
         console.log(res);
         that.setData({
 
@@ -233,11 +268,15 @@ Page({
         })
         console.log(that.data.approvalMeetList)
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log(".....fail.....");
+        wx.showModal({
+          title: '查询失败',
+          content: '请检查网络链接。。。',
+        })
       }
     })
 
   }
-  
+
 })

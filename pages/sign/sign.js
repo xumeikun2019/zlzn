@@ -7,14 +7,15 @@ Page({
   data: {
     pwd:"",
     user:"",
-    redirect:""
+    redirect: "",
+    imgurl: getApp().globalData.imgUrl
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-     console.log(getApp().globalData.openid)
+     console.log(getApp().globalData.openid+"----")
     var openid = getApp().globalData.openid;
     wx.request({
 
@@ -27,6 +28,7 @@ Page({
         console.log(res);
         if(res.data.data.length > 0){
           getApp().globalData.user = res.data.data[0].username;
+          getApp().globalData.userid = res.data.data[0].id;
           getApp().globalData.role = res.data.data[0].role;
           wx.reLaunch({
             url: '../home/home',
@@ -35,6 +37,10 @@ Page({
       },
       fail: function (res) {
         console.log(".....fail.....");
+        wx.showModal({
+          title: '登录失败',
+          content: '请检查网络链接。。。',
+        })
       }
     })
 
@@ -48,8 +54,6 @@ Page({
     console.log(this.data.redirect)
 
     if(this.data.redirect == ''){
-
-   
       console.log(getApp().globalData.openid);
       console.log(this.data.pwd);
       var openid = getApp().globalData.openid;
@@ -69,6 +73,13 @@ Page({
           console.log(res)
          
           if (res.data != ""){
+            if(res.data == "signed"){
+              wx.showModal({
+                title: '登录失败',
+                content: '账号已经登录',
+              })
+              return;
+            }
             console.log("res.data")
             console.log(res.data)
           
@@ -86,6 +97,10 @@ Page({
         },
         fail: function (res) {
           console.log(".....fail.....");
+          wx.showModal({
+            title: '登录失败',
+            content: '请检查网络链接。。。',
+          })
         }
       })
     } 

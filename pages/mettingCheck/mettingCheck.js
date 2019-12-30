@@ -49,6 +49,10 @@ Page({
       },
       fail: function (res) {
         console.log(".....fail.....");
+        wx.showModal({
+          title: '签到失败',
+          content: '请检查网络链接。。。',
+        })
       }
 
     })
@@ -112,6 +116,10 @@ Page({
                 },
                 fail: function (res) {
                   console.log(".....fail.....");
+                  wx.showModal({
+                    title: '签到失败',
+                    content: '请检查网络链接。。。',
+                  })
                 }
 
               })
