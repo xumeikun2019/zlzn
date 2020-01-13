@@ -20,11 +20,7 @@ Page({
       image: '../../images/myorder.png',
       title: '访客记录'
     }
-    ,{
-      url: '../signOut/signOut',
-        image: '../../images/quit.png',
-        title: '退出登录'
-      }
+    
     ]
 
 

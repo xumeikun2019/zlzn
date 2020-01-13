@@ -7,22 +7,9 @@ Page({
   data: {
     imgurl: getApp().globalData.imgUrl,
     multiIndex: [0, 0, 0],//当前选择部门
-    multiArray: [['公司一', '公司二'],
-    ['分公司一', '分公司二', '分公司三', '分公司四', '分公司五'],
-    ['张三', '李四']],//部门列表
+    multiArray: [[],[],[]],//部门列表
     currnetDepTwo: "-1",//当前选择部门id
-    checkboxArr: [
-      {
-        checked: false,//是否选中
-        id: "1",//部门能id
-        name: "部门1",
-      },
-      {
-        checked: false,//是否选中
-        id: "2",//部门能id
-        name: "部门2",
-      }
-    ],//部门列表
+    checkboxArr: [],//参会部门列表
     personnelArr: null,//人员列表
     checkValue: [],//部门
     depValue: [],//部门
@@ -33,8 +20,11 @@ Page({
     u_id: [],//人员集合
     words: null,//成员名称的手写字母
     forminfo:"",
-    meetStates:[]
-   
+    meetStates:[],
+    timeStartArray: [["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19","20","21","22","23","24"],["00","15","30","45"]],//开始时间
+    timeStartIndex:[0,0],
+    timeEndArray: [["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"], ["00", "15", "30", "45"]],
+    timeEndIndex: [0, 0]
   },
 
   /**
@@ -66,6 +56,7 @@ Page({
     this.getMeetRoom();//加载会议室
     var that = this;
    
+
   },
   //查看会议室状态
   meetState(){
@@ -226,11 +217,50 @@ Page({
   //选择会议室
   bindMultiPickerChangeMeet: function (e) {
     console.log('picker发送选择--改变，携带值为', e.detail.value)
-
+    
     this.setData({
       meetRoomIndex: e.detail.value
     })
-    console.log(this.data.meetRoomList[this.data.meetRoomIndex[0]].id)
+    console.log(this.data.meetRoomList[this.data.meetRoomIndex[0]])
+
+  },
+
+  bindTimeStartPickerChange: function (e) {
+    console.log('picker发送选择--改变，携带值为', e.detail.value)
+    var selectValue = e.detail.value;
+    var currentdate = new Date();
+    console.log(currentdate.getHours() + ":" + currentdate.getMinutes())
+    //比较当前时间
+    if (currentdate.getHours() > this.data.timeStartArray[0][selectValue[0]]){
+      wx.showModal({
+        title: '',
+        content: '选择时间已过期！',
+      })
+      return;
+    } else if (currentdate.getHours() == this.data.timeStartArray[0][selectValue[0]] && currentdate.getMinutes() > this.data.timeStartArray[1][selectValue[1]]) {
+      wx.showModal({
+        title: '',
+        content: '选择时间已过期！',
+      })
+      return;
+    }
+    
+
+    this.setData({
+      timeStartIndex: e.detail.value,
+      time1: this.data.timeStartArray[0][selectValue[0]] + ":" + this.data.timeStartArray[1][selectValue[1]]
+    })
+    console.log(this.data.timeStartArray[0][this.data.timeStartIndex[0]])
+
+  },
+  bindTimeEndPickerChange: function (e) {
+    console.log('picker发送选择--改变，携带值为', e.detail.value)
+
+    this.setData({
+      timeEndIndex: e.detail.value,
+      time2: this.data.timeEndArray[0][e.detail.value[0]] + ":" + this.data.timeEndArray[1][e.detail.value[1]]
+    })
+    console.log(this.data.timeEndArray[this.data.timeEndIndex[0]])
 
   },
   //定位字母锚点
@@ -315,7 +345,7 @@ Page({
 
         console.log(res.data.data);
         var depOne = ["全部"];
-        var depOneList = [{ level: 3, parent_id: "-1", last_time: 1572487795000, name: "全部", id: "-1" }];
+        var depOneList = [{ level: 3, parent_id: "-1", last_time: 1572487795000, name: "全部", id: "1" }];
         for (var i = 0; i < res.data.data.length; i++) {
           console.log(res.data.data[i].name);
           depOne.push(res.data.data[i].name)
@@ -329,14 +359,17 @@ Page({
           depOne,
           depOneList
         })
-
+        
         var defaultCode = depOneList[0].id;
         var parentid = depOneList[0].parent_id;
+        console.log("defaultCode")
+        console.log(defaultCode)
         if (defaultCode) {
           that.setData({
             currnetDepOne: defaultCode // 保存在当前的省级key
           })
           that.getDepTwo(defaultCode, parentid); // 使用第一项当作参数获取第二级数据
+          that.getDep(defaultCode);//默认加载部门
         }
 
       },
@@ -394,11 +427,14 @@ Page({
         if (depTwoList.length > 0) {
           var defaultCode = depTwoList[0].id
           var parentid = depTwoList[0].parent_id;
+         
           if (defaultCode) {
             that.setData({
               currnetDepTwo: defaultCode // 存下当前选择的部门key
             })
             that.getDepThree(defaultCode, parentid); // 使用第一项当作参数获取第二级数据
+           
+           
           }
         }
 
@@ -450,6 +486,7 @@ Page({
           depThree,
           depThreeList
         })
+       
         if (depThreeList.length > 0) {
           var defaultCode = depThreeList[0].id
           if (defaultCode) {
@@ -601,6 +638,7 @@ Page({
     // this.getUser();//通过选中部门来获取不通的部门成员，将获取到的数据存入checkboxArr中
   },//控制部门的显隐
   isDep: function () {
+    
     this.setData({
       isDep: true,
     })
@@ -635,14 +673,14 @@ Page({
       return
 
     }
-    if (leaderArr.length == 0) {
-      wx.showModal({
-        title: '',
-        content: '请选择参会领导！',
-      })
-      return
+    // if (leaderArr.length == 0) {
+    //   wx.showModal({
+    //     title: '',
+    //     content: '请选择参会领导！',
+    //   })
+    //   return
 
-    }
+    // }
 
     if (e.detail.value.phone.length == 0 || e.detail.value.amount.length == 0 || e.detail.value.host.length == 0 || e.detail.value.meetName.length == 0) {
       wx.showModal({
@@ -673,7 +711,7 @@ Page({
       })
       return
     }
-    if (this.data.time2 < this.data.time1) {
+    if (this.data.time2 <= this.data.time1) {
 
       wx.showModal({
         title: '',
@@ -721,12 +759,21 @@ Page({
             time2: "",
             leader: [],
             dep: [],
+            meetStates:[],
+            timeStartIndex: [0, 0],
+            timeEndIndex:[0,0]
+          })
+        } else if (res.data.message == "exist") {
+
+          wx.showModal({
+            title: '',
+            content: '预约失败！请检查预约时间是否空闲',
           })
         } else {
 
           wx.showModal({
             title: '',
-            content: '预约失败！请检查预约时间是否空闲',
+            content: '预约失败！',
           })
         }
       },

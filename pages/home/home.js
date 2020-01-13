@@ -16,7 +16,7 @@ Page({
    */
   onLoad: function (options) {
     console.log("role"+getApp().globalData.role);
-    
+    //会议室管理员
     if (getApp().globalData.role.indexOf("c88fcb9800fa11ea875400e081bbbd32") != '-1') {
 
       this.setData({
@@ -34,7 +34,7 @@ Page({
         {
           url: '../approval/approval',
           image: '../../images/approve.jpg',
-          title: '代办审批'
+          title: '待办审批'
         },
           {
             url: '../meetOrder/meetOrder',
@@ -43,13 +43,19 @@ Page({
           },
           {
             url: '../myMeetOrder/myMeetOrder',
-            image: '../../images/myOrder.png',
+            image: '../../images/myorder.png',
             title: '我的预约'
+          },
+          
+          {
+            url: '../meettingAssign/meettingAssign',
+            image: '../../images/meetingAssign.jpg',
+            title: '会议指派'
           },
           {
             url: '../meets/meets',
-            image: '../../images/news.jpg',
-            title: '我的会议'
+            image: '../../images/myMeeting.jpg',
+            title: '会议日历'
           },
         {
           url: '../leaderMeets/leaderMeets',
@@ -90,7 +96,7 @@ Page({
 
       })
 
-    } else {
+    }else {
       this.setData({
 
         bnrUrl: [{
@@ -109,13 +115,19 @@ Page({
           },
           {
             url: '../myMeetOrder/myMeetOrder',
-            image: '../../images/myOrder.png',
+            image: '../../images/myorder.png',
             title: '我的预约'
+          },
+
+          {
+            url: '../meettingAssign/meettingAssign',
+            image: '../../images/meetingAssign.jpg',
+            title: '会议指派'
           },
           {
             url: '../meets/meets',
-            image: '../../images/news.jpg',
-            title: '我的会议'
+            image: '../../images/myMeeting.jpg',
+            title: '会议日历'
           },
         {
           url: '../approval/approval',

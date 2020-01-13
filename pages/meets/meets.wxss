@@ -111,7 +111,7 @@
   border:1px solid #000;
   border-right:0;
   border-bottom: 0;
-  width: 98%;
+  width: 93vw;
   margin-left: 1%;
 }
 /* 表头 */
@@ -120,7 +120,7 @@
   justify-content: space-between; /* 项目位于各行之间留有空白的容器内。 */
   background-color:rgb(30, 196, 156);
   width: 100%;
-  font-size: 35rpx;
+  font-size: 20rpx;
   color: #330e0e;
   text-align: center;
   font-weight: 900;
@@ -134,10 +134,12 @@
   border-right: 1px solid #000;
 }
 .th1,.th2{
-  width: 30%
+  width: 20%;
+   
 }
 .th3{
-  width: 40%
+  width: 40%;
+   height: 80rpx;
 }
 /* 表格cell */
 .table_cell{
@@ -152,13 +154,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 60rpx;
+  height: 80rpx;
   border-bottom: 1px solid #000;
   border-right: 1px solid #000;
   
 } 
 .td1,.td2{
-  width: 30%
+  width: 20%
 } 
 .td3{
   width: 40%
@@ -179,3 +181,108 @@
  z-index: 0;
 }
 
+.typeListBox{
+  z-index: 101;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 50rpx;
+  background: rgba(0,0,0,0.3);
+  text-align: center
+}
+
+
+.typeListBox{
+  z-index: 101;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 50rpx;
+  background: rgba(0,0,0,0.3);
+}
+.typeList{
+  /* margin-top: 200rpx; */
+  padding: 0 15rpx;
+  border-radius: 5px;
+  font-size: 13px;
+  background-color: #fff;
+}
+.typeList .radio-group{
+  display: flex;
+  flex-direction: column;
+}
+.typeList-item{
+  display: flex;
+  flex-direction: row;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+.typeList-item text{
+  margin-left: 10rpx;
+  line-height: 20rpx;
+}
+.radio{
+  padding: 0 20rpx 0 0;
+}
+.engineer{
+  padding: 0 20rpx 0 0;
+}
+.engineer-text{
+  line-height: 46rpx;
+}
+.engineer-item{
+  padding: 10rpx 0;
+}
+
+.nav{
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+.nav text{
+  padding: 20rpx;
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+}
+.nav text.active{
+  color: #3eace2;
+  border-bottom: 1rpx solid #3eace2;
+}.wrap{
+  padding: 20rpx 30rpx;
+  border-radius: 5px;
+  font-size: 13px;
+  background-color: #fff;
+  position: relative;
+}
+ 
+
+ .btn1{
+  display: flex;
+  flex-direction: row;
+}
+.btn1 button{
+  flex: 1;
+  background-color: #3eace2;
+  color: #fff;
+}
+.btn1 button.bgFFF{
+  margin-right: 20rpx;
+  color: #666;
+  background-color: #fff;
+}
+.list_file{
+  padding: 10px;
+  text-align: center;
+  font-size: 1.2rem
+}
+
+.btn_view{
+
+  margin-left: 40rpx;
+  text-decoration:underline 
+}

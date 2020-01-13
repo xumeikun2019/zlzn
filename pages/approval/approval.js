@@ -182,7 +182,8 @@ Page({
       cname: "会议审批"
     }],
     visitor: true,
-    meeting: false
+    meeting: false,
+    imgurl: getApp().globalData.imgUrl,
   },
 
   /**

@@ -41,25 +41,28 @@
       </view>
     </view>
   </view>
-  <!-- 坚持打卡天数 -->
+  <!-- 会议列表 -->
   <view class='count'>
+        <text>{{date}}</text>
         <view wx:if="{{meets == ''}}">
             <text>暂无会议</text>
         </view>
        
-
+    
     <view class="tableView" wx:else>
     <view class="table_header">
       <view class="th th1">会议名称</view>
       <view class="th th2">会议地点</view>
       <view class="th th3">会议时间</view>
+      <view class="th th2">附件</view>
     </view>
     <!-- <block> 并不是一个组件，它仅仅是一个包装元素，不会在页面中做任何渲染，只接受控制属性。 -->
     <block wx:for="{{meets}}" wx:for-index="index" wx:key="i">
       <view class="table_cell">
         <view class="td td1">{{item.meeting_name}}</view>
-        <view class="td td2">{{item.name}}</view>
+        <view class="td td2">{{item.meetroom}}</view>
         <view class="td td3">{{item.time_start}}</view>
+         <view class="td td2"> <lable class='btn_down' data-index="{{item.id}}" bindtap='findFile'>查看</lable></view>
       </view>
     </block>
 
@@ -70,3 +73,21 @@
  
 
 </view>
+
+<!-- 文件列表 -->
+  <view class='typeListBox' wx:if="{{isFile}}">
+    <view class='wrap'>
+      <view class='nav'>
+        <text class='active'>附件</text>
+        
+        <!-- <text class='{{navId==2?"active":""}}' data-id='2' bindtap='getNav'>人员</text> -->
+      </view>
+      <view  class="list_file" wx:for="{{fileList}}" >
+      <label  >{{item.name}}</label> <label class="btn_view"  data-index="{{item.path}}" bindtap='download'>查看</label>
+      </view>
+      <text >(*支持10M以内的doc,xls,pdf格式的文档查看)</text>
+      <view class='btn1'>
+        <button class='' bindtap='confirm'>确定</button>
+      </view>
+    </view>
+  </view>

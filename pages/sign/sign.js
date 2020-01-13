@@ -25,6 +25,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function (res) {
+       
         console.log(res);
         if(res.data.data.length > 0){
           getApp().globalData.user = res.data.data[0].username;
@@ -70,21 +71,20 @@ Page({
           'content-type': 'application/x-www-form-urlencoded'
         },
         success: function (res) {
+          console.log("+++++++++++")
           console.log(res)
          
-          if (res.data != ""){
-            if(res.data == "signed"){
+          if (res.data.result != "fail"){
+            if(res.data.message == "signed"){
               wx.showModal({
                 title: '登录失败',
                 content: '账号已经登录',
               })
               return;
             }
-            console.log("res.data")
-            console.log(res.data)
-          
+            getApp().globalData.userid = res.data.data.id;
             getApp().globalData.user = that.data.user;
-            getApp().globalData.role = res.data;
+            getApp().globalData.role = res.data.data.role;
             wx.reLaunch({
               url: '../home/home',
             })

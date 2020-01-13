@@ -17,7 +17,8 @@
     "pages/leaderMeets/leaderMeets",
     "pages/companyMeets/companyMeets",
     "pages/meetOrder/meetOrder",
-    "pages/myMeetOrder/myMeetOrder"
+    "pages/myMeetOrder/myMeetOrder",
+    "pages/meettingAssign/meettingAssign"
   ],
   "window": {
     "backgroundTextStyle": "light",

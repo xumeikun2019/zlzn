@@ -14,7 +14,8 @@ Page({
     cur_year: 0,
     cur_month: 0,
     count: 0,
-    meets:[] 
+    meets:[],
+    isFile: false
   },
 
   /**
@@ -35,8 +36,9 @@ Page({
       cur_month,
       weeks_ch
     })
-    this.onGetSignUp();
-
+    //this.onGetSignUp();
+    this.findmeets();
+    
     //console.log(this.data.days)
   },
   // 获取当月共多少天
@@ -140,7 +142,7 @@ Page({
       })
       this.calculateEmptyGrids(newYear, newMonth);
       this.calculateDays(newYear, newMonth);
-      this.onGetSignUp();
+      //this.onGetSignUp();
 
     } else {
       let newMonth = cur_month + 1;
@@ -155,7 +157,7 @@ Page({
       })
       this.calculateEmptyGrids(newYear, newMonth);
       this.calculateDays(newYear, newMonth);
-      this.onGetSignUp();
+      //this.onGetSignUp();
 
     }
 
@@ -163,56 +165,162 @@ Page({
   },
 
   //获取当前用户该任务的签到数组
-  onGetSignUp: function () {
-
-   
-    var that = this;
-    var month = that.data.cur_month;
-
-    if (month < 10) {
-      console.log(month);
-      month = '0' + month
-    }
-    console.log(month);
-    var date = that.data.cur_year + '-' + month
-    var user = getApp().globalData.user;
-    wx.request({
-
-      // url: getApp().globalData.weburl + '/api/wxRequest/approve/' +id+ '/P',
-      url: getApp().globalData.weburl + '/api/wxRequest/record',
-
-      method: 'GET',
-      data: {
-        date: date,
-        user: user
-      },
-
-      success: function (res) {
-        console.log(res);
-
-        that.setData({
-          signUp: res.data.data,
-          count: res.data.data.length
-        })
-        //获取后就判断签到情况
-        that.onJudgeSign();
-      },
-      fail: function (res) {
-
-
-      }
+ 
+  confirm(){
+    this.setData({
+      isFile: false,
     })
 
+  },
+  findFile: function (e) {
+    var that = this;
+    console.log(e.currentTarget.dataset.index);
+    console.log(e.currentTarget.dataset.index == null);
+    if (e.currentTarget.dataset.index == null) {
+
+    } else {
+      var id = e.currentTarget.dataset.index;
+      wx.request({
+        // url: getApp().globalData.weburl + '/api/wxRequest/approve/' +id+ '/P',
+        url: getApp().globalData.weburl + '/api/wxRequest/files',
+        method: 'GET',
+        data: {
+          id: id
+        },
+        success: function (res) {
+          console.log(res)
+
+         console.log(res.data.data)
+          that.setData({
+            isFile: true,
+            fileList:res.data.data
+          })
+        },
+        fail: function (res) {
+        }
+      })
+
+    }
+   
+  },
+  download: function (e){
+    wx.showLoading({
+      title: '加载中',
+    })
+    wx.getSavedFileList({  // 获取文件列表
+      success(res) {
+        res.fileList.forEach((val, key) => { // 遍历文件列表里的数据
+          // 删除存储的垃圾数据
+          wx.removeSavedFile({
+            filePath: val.filePath
+          });
+        })
+      }
+    })
+    console.log(e);
+    console.log(e.currentTarget.dataset.index);
+    console.log(e.currentTarget.dataset.index == null);
+    if (e.currentTarget.dataset.index == null){
+      
+    } else {
+      var path = e.currentTarget.dataset.index;
+      var url = getApp().globalData.weburl + "/upload/common/" + path
+      console.log(url);
+      wx.downloadFile({
+        url: url,
+        success: function (res) {
+          console.log(res.tempFilePath)
+          // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+          if (res.statusCode === 200) {
+           
 
 
-    this.onJudgeSign();
-    
+            wx.openDocument({
+                  filePath: res.tempFilePath,
+                  success: function (res) {
+                    wx.hideLoading();
+                    console.log('打开文档成功')
+                  },fail:function(res){
+                    wx.hideLoading();
+                    console.log(res)
+                    wx.showModal({
+                      title: '',
+                      content: '文件打开失败',
+                    })
+                  }
+                })
+
+
+
+            // 将临时地址转存到本地缓存中
+            // wx.saveFile({
+            //   tempFilePath: res.tempFilePath,
+            //   success: function (res) {
+            //     console.log(res);
+            //     var savedFilePath = res.savedFilePath;
+            //     console.log('文件已下载到' + savedFilePath);
+            //     // 查看下载的文件列表
+            //     wx.getSavedFileList({
+            //       success: function (res) {
+            //         console.log(res);
+            //       }
+            //     })
+            //     // 打开文档
+            //     wx.openDocument({
+            //       filePath: savedFilePath,
+            //       success: function (res) {
+            //         wx.hideLoading();
+            //         console.log('打开文档成功')
+            //       },fail:function(res){
+            //         wx.hideLoading();
+            //         console.log(res)
+            //         wx.showModal({
+            //           title: '',
+            //           content: '文件打开失败',
+            //         })
+            //       }
+            //     })
+            //   },fail:function (res){
+            //     wx.hideLoading();
+            //     console.log("fail...........")
+            //     console.log(res)
+            //     wx.showModal({
+            //       title: '',
+            //       content: '文件加载失败',
+            //     })
+            //   }
+            // })
+          } else {
+            wx.hideLoading();
+            wx.showModal({
+              title: '',
+              content: '文件获取失败',
+            })
+          }
+        },
+        fail: function (res) {
+          console.log(res);
+          wx.hideLoading();
+          wx.showModal({
+            title: '',
+            content: '文件获取失败',
+          })
+        }
+      });
+    }
   },
   findmeets:function(e){
     var that = this;
     var user = getApp().globalData.user;
     var month = this.data.cur_month;
-    var day = e.currentTarget.dataset.index;
+    var day ;
+    var currentdate = new Date();
+    if(e == null){
+      day = currentdate.getDate();
+    } else {
+      day = e.currentTarget.dataset.index;
+    }
+    
     if (month < 10) {
       console.log(month);
       month = '0' + month
@@ -223,6 +331,7 @@ Page({
     }
     console.log(month);
     var date = this.data.cur_year + '-' + month + '-' + day;
+
     wx.request({
 
       // url: getApp().globalData.weburl + '/api/wxRequest/approve/' +id+ '/P',
@@ -238,7 +347,7 @@ Page({
         console.log(res);
 
         that.setData({
-
+          date:date,
           meets: res.data.data
         })
       },
@@ -248,4 +357,5 @@ Page({
       }
     })
   }
+ 
 })

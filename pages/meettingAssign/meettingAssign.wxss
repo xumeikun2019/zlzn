@@ -1,129 +1,25 @@
-/* pages/order/order.wxss */
-#order {
- 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  
-}
-.weui-cells {
-  font-size: 1.4em;
-  margin: 0;
+
+.weui-cells{
+  background-color:rgba(0, 0, 0, 0.0);
+ font-size: 0.8rem;
+  margin: 50rpx,0,0,0;
   color:aliceblue;
-  background-color: rgba(0, 0, 0, 0);
-  width: 100vw
-}
-.weui-cell{
-  height: 100rpx;
-}
-.weui-label{
-
-  font-weight: 800;
-  
+  font-weight: 900;
+ 
 
 }
-.picker{
-  font-size:0.9em;
-}
-.weui-label {
-  font-size:0.7em;
-}
-
-.placeholder{
-  left:-50rpx;
-  font-size:0.6em;
-
-}
-.weui-cell weui-cell_input{
-
-  border:4rpx,solid;
-}
-
 .weui-cells__title{
   font-size: 50rpx;
   color:aliceblue;
-  
-}
-.weui-cell__bd .weui-input{
-
-  padding-left: 50rpx
-
-}
-
-.bkimg{
- height: 100vh;
- width: 100vw;
- position: fixed;
- z-index: 0;
-}
+  text-align: center;
+  font-weight: 800;
+ }
 .page{
   width: 100vw;
   position: absolute;
-  z-index: 1
+  z-index: 1;
+ 
 }
-.upload{
-
-  float: left;
-}
-.img{
-
-  height:20vh;
-  width: 40vw;
-  border: 1px dashed #70bcf6; 
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  background-color: #f5f5f5;
-  padding-top: 20rpx;
-} 
-
-.class{
-  display: flex;
-  flex-direction: row;
-  padding: 20rpx 0;
-  background-color: #fff;
-  margin-bottom: 20rpx;
-}
-.class view.class-text{
-  flex: 1;
-  padding-left: 30rpx;
-  font-size: 14px;
-}
-.red{
-  margin-right: 10rpx;
-  color: #ff0000;
-}
-.class-choose{
-  max-width: 60%;
-  display: flex;
-  flex-direction:column;
-  text-align: right;
-}
-.class-choose-item{
-  display: flex;
-  flex-direction: column;
-  padding-right: 40rpx;
-}
-.class-choose text{
-  flex: 1;
-  font-size: 14px;
-  color: #999;
-}
-.class-choose text.color333{
-    font-size:0.9em;
-  color:#fff;
-}
-.class-choose image{
-  width: 16px;
-  margin: 6rpx 20rpx 0;
-}
-
-
-/* 部门列表样式 */
 .typeListBox{
   z-index: 101;
   position: fixed;
@@ -270,4 +166,17 @@
   color: #666;
   background-color: #f5f5f5;
   text-align: left;
+}
+
+
+.bkimg{
+ height: 100vh;
+ width: 100vw;
+ position: fixed;
+ z-index: 0;
+}
+
+.interval{
+
+  height: 50rpx;
 }

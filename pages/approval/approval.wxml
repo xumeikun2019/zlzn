@@ -1,4 +1,7 @@
+<image src='{{imgurl}}/finance/statics/images/login.jpg' class='bkimg'></image>
+
 <view class="page">
+
   <view class="page__hd">
 
 
@@ -35,9 +38,7 @@
         <view class="weui-cell__bd">身份证号</view>
         <view class="weui-cell__bd">{{item.user_card}}</view>
       </view>
-      <view class="interval">
-
-      </view>
+    
 
 
     </view>
@@ -82,9 +83,7 @@
         <view class="weui-cell__bd">{{item.time_end}}</view>
 
       </view>
-      <view class="interval">
-
-      </view>
+      
 
 
     </view>

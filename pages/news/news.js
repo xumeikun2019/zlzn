@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    imgurl: getApp().globalData.imgUrl
   },
 
   /**
@@ -27,7 +27,6 @@ Page({
           message[i] = res.data.data[i].content
           messagelist[i] = message[i].split(";");
           messagelist[i].push("消息时间："+res.data.data[i].date);
-
         }
         console.log(messagelist);
         that.setData({

@@ -32,6 +32,11 @@ Page({
                   icon: 'success',
                   duration: 20000
                 })
+
+                getApp().globalData.user = 0;
+                getApp().globalData.userid = 0;
+                getApp().globalData.role = "";
+                getApp().globalData.userInfo= null,
                 wx.reLaunch({
                   url: '../login/login',
                 })
