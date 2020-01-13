@@ -39,10 +39,10 @@ App({
     //weburl: "https://smart.chinalcoc.com/finance",
     weburl: "http://192.168.0.178:8080/finance",
     formId:0,
-    user: 0,
-    userid:0,
+    user: 0,//用户名
+    userid:0,//用户id
     imgUrl:"http://192.168.0.178:8080",
     //imgUrl:"https://smart.chinalcoc.com",
-    role:""
+    role:""//角色id
   }
 })
