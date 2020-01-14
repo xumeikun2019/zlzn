@@ -30,39 +30,40 @@ Page({
             console.log(res.data.openid);
             getApp().globalData.openid = res.data.openid;
             //console.log(getApp().globalData.openid);
+            // 查看是否授权
+            wx.getSetting({
+              success: function (res) {
+                if (res.authSetting['scope.userInfo']) {
+                  wx.getUserInfo({
+                    success: res => {
+                      console.log("res");
+                      console.log(res);
+                      // 可以将 res 发送给后台解码出 unionId
+                      getApp().globalData.userInfo = res.userInfo
+
+
+                      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+                      // 所以此处加入 callback 以防止这种情况
+                      if (getApp().userInfoReadyCallback) {
+                        getApp().userInfoReadyCallback(res)
+                      }
+                    }
+                  })
+                  wx.redirectTo({
+                    url: '../sign/sign'
+                  })
+                }
+
+              }
+            })
           }
         })
 
 
       }
     })
-    var that = this;
-    // 查看是否授权
-    wx.getSetting({
-      success: function (res) {
-        if (res.authSetting['scope.userInfo']) {
-          wx.getUserInfo({
-            success: res => {
-             
-              // console.log("userinfo" + res.userInfo.avatarUrl);
-              // 可以将 res 发送给后台解码出 unionId
-              getApp().globalData.userInfo = res.userInfo
-
-
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              if (getApp().userInfoReadyCallback) {
-                getApp().userInfoReadyCallback(res)
-              }
-            }
-          })
-          wx.redirectTo({
-            url: '../sign/sign'
-          })
-        }
-
-      }
-    })
+    
+    
   },
   registerFormSubmit: function (e) {
     console.log(e);

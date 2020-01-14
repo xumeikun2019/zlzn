@@ -26,11 +26,19 @@ Page({
             },
 
             success: function(res) {
-
-              wx.showModal({
-                title: '审批通过',
-                content: '成功',
-              })
+              console.log(res);
+              if (res.data.result == 'ok'){
+                wx.showModal({
+                  title: '审批通过',
+                  content: '成功',
+                })
+              } else {
+                wx.showModal({
+                  title: '审批失败',
+                  content: '请重试',
+                })
+                return;
+              }
               that.findVisiterList()
             },
             fail: function(res) {
@@ -57,10 +65,20 @@ Page({
             },
 
             success: function(res) {
-              wx.showModal({
-                title: '审批不通过',
-                content: '成功',
-              })
+
+              if (res.data.result == 'ok') {
+                wx.showModal({
+                  title: '审批不通过',
+                  content: '成功',
+                })
+              } else {
+                wx.showModal({
+                  title: '审批失败',
+                  content: '请重试',
+                })
+                return;
+              }
+             
               that.onLoad();
             },
             fail: function(res) {
