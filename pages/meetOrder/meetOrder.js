@@ -255,7 +255,24 @@ Page({
   },
   bindTimeEndPickerChange: function (e) {
     console.log('picker发送选择--改变，携带值为', e.detail.value)
-
+    console.log('picker发送选择--改变，携带值为', e.detail.value)
+    var selectValue = e.detail.value;
+    var currentdate = new Date();
+    console.log(currentdate.getHours() + ":" + currentdate.getMinutes())
+    //比较当前时间
+    if (currentdate.getHours() > this.data.timeEndArray[0][selectValue[0]]) {
+      wx.showModal({
+        title: '',
+        content: '选择时间已过期！',
+      })
+      return;
+    } else if (currentdate.getHours() == this.data.timeEndArray[0][selectValue[0]] && currentdate.getMinutes() > this.data.timeEndArray[1][selectValue[1]]) {
+      wx.showModal({
+        title: '',
+        content: '选择时间已过期！',
+      })
+      return;
+    }
     this.setData({
       timeEndIndex: e.detail.value,
       time2: this.data.timeEndArray[0][e.detail.value[0]] + ":" + this.data.timeEndArray[1][e.detail.value[1]]
