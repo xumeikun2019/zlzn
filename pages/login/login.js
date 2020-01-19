@@ -65,11 +65,6 @@ Page({
     
     
   },
-  registerFormSubmit: function (e) {
-    console.log(e);
-    getApp().globalData.formId = e.detail.formId;
-
-  },
   bindGetUserInfo: function (e) {
     if (e.detail.userInfo) {
       //用户按了允许授权按钮
